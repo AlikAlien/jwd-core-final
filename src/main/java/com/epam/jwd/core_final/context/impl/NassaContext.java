@@ -27,6 +27,6 @@ public class NassaContext implements ApplicationContext {
      */
     @Override
     public void init() throws InvalidStateException {
-        throw new InvalidStateException();
+        throw new InvalidStateException("2");
     }
 }
