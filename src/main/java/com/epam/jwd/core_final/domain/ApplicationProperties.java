@@ -29,6 +29,7 @@ public class ApplicationProperties {
     final String spaceshipsFileName = PropertyReaderUtil.READER_UTIL.loadProperties("spaceshipsFileName");
     final int fileRefreshRate = parseInt(PropertyReaderUtil.READER_UTIL.loadProperties("fileRefreshRate"));
     final String dateTimeFormat = PropertyReaderUtil.READER_UTIL.loadProperties("dateTimeFormat");
+    final String routeFileName = PropertyReaderUtil.READER_UTIL.loadProperties("routeFileName");
 
     public String getInputRootDir() {
         return inputRootDir;
@@ -58,4 +59,7 @@ public class ApplicationProperties {
         return dateTimeFormat;
     }
 
+    public String getRouteFileName() {
+        return routeFileName;
+    }
 }

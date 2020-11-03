@@ -8,6 +8,7 @@ import java.util.Properties;
 public final class PropertyReaderUtil {
     public static final PropertyReaderUtil READER_UTIL = new PropertyReaderUtil(); // change private to public
     private PropertyReaderUtil(){}
+
     private static final Properties properties = new Properties();
     /**
      * try-with-resource using FileInputStream

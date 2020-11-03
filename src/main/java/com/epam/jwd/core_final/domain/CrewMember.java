@@ -22,14 +22,6 @@ public class CrewMember extends AbstractBaseEntity {
         this.role = role;
     }
 
-    /*public String getNameCrew() {
-        return nameCrew;
-    }
-
-    public void setNameCrew(String name) {
-        this.nameCrew = name;
-    }*/
-
     public String getRank() {
         return rank;
     }
