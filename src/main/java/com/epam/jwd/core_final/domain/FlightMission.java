@@ -16,20 +16,28 @@ import java.util.List;
  */
 public class FlightMission extends AbstractBaseEntity {
     // todo
-    //String missionsName;
+    String missionsName;
     LocalDate startDate;
     LocalDate endDate;
-    Long distanceMissions;
+    Long distance;
     Spaceship assignedSpaceShift;
-    List<CrewMember> assignedCrew;
+    List <CrewMember> assignedCrew;
     MissionResult missionResult;
+
+    public String getMissionsName() {
+        return missionsName;
+    }
+
+    public void setMissionsName(String missionsName) {
+        this.missionsName = missionsName;
+    }
 
     public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
+    public void setStartDate() {
+        this.startDate = LocalDate.now(); //startDate;
     }
 
     public LocalDate getEndDate() {
@@ -40,12 +48,12 @@ public class FlightMission extends AbstractBaseEntity {
         this.endDate = endDate;
     }
 
-    public Long getDistanceMissions() {
-        return distanceMissions;
+    public Long getDistance() {
+        return distance;
     }
 
-    public void setDistanceMissions(Long distanceMissions) {
-        this.distanceMissions = distanceMissions;
+    public void setDistance(Long distance) {
+        this.distance = distance;
     }
 
     public Spaceship getAssignedSpaceShift() {
@@ -71,4 +79,5 @@ public class FlightMission extends AbstractBaseEntity {
     public void setMissionResult(MissionResult missionResult) {
         this.missionResult = missionResult;
     }
+
 }

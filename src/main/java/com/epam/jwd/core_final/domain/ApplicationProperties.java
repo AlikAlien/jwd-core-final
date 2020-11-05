@@ -22,6 +22,7 @@ public class ApplicationProperties {
     //todo
     public static final ApplicationProperties APP_PROPERTIES = new ApplicationProperties();
     private ApplicationProperties(){}
+
     final String inputRootDir = PropertyReaderUtil.READER_UTIL.loadProperties("inputRootDir");
     final String outputRootDir = PropertyReaderUtil.READER_UTIL.loadProperties("outputRootDir");;
     final String crewFileName = PropertyReaderUtil.READER_UTIL.loadProperties("crewFileName");;

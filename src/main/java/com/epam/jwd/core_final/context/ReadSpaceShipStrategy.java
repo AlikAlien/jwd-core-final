@@ -1,12 +1,11 @@
 package com.epam.jwd.core_final.context;
 
+import com.epam.jwd.core_final.domain.Role;
 import com.epam.jwd.core_final.domain.Spaceship;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Scanner;
+import java.util.*;
 
 public class ReadSpaceShipStrategy{
     public Collection <Spaceship> readBaseEntityList (String filePath){
@@ -20,20 +19,23 @@ public class ReadSpaceShipStrategy{
             scanner.nextLine();
             while(scanner.hasNext()){
                 s = scanner.nextLine();
-                //System.out.println(s);
                 Spaceship spaceship = new Spaceship();
+                Map <Role,Short> mapship = new HashMap<>();
+                //SC Dakota;318118;{1:4,2:5,3:2,4:1}
                 String[] lineSplit = s.split(";", 3);
                 spaceship.setId(++id);
                 spaceship.setName(lineSplit[0]);
-                //System.out.println(lineSplit[0]+ " "+ lineSplit[1]+" "+lineSplit[2]);
                 spaceship.setFlightDistance(Long.valueOf(lineSplit[1]));
-                //{1:5,2:6,3:2,4:3}
+                //{1:4,2:5,3:2,4:1}
                 String str = lineSplit[2].substring(1,lineSplit[2].length()-1);
-                //1:5,2:6,3:2,4:3
+                //1:4,2:5,3:2,4:1
                 String[] crew = str.split(",", 4);
-
-                //String[] lineSplit = lineSplit[2].split()
-                //spaceship.setCrew(lineSplit[2]);
+                //[1:4] [2:5] [3:2] [4:1]
+                for (String string: crew) {
+                    String[] str3 = string.split(":", 2);
+                    mapship.put(Role.getRoleById(Short.valueOf(str3[0])),Short.valueOf(str3[1]));
+                }
+                spaceship.setCrew(mapship);
                 spaceships.add (spaceship);
             }
             scanner.close();

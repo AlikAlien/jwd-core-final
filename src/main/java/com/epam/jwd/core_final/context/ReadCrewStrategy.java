@@ -1,6 +1,8 @@
 package com.epam.jwd.core_final.context;
 
 import com.epam.jwd.core_final.domain.CrewMember;
+import com.epam.jwd.core_final.domain.Role;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,7 +22,7 @@ public class ReadCrewStrategy {
             CrewMember crewMember = new CrewMember();
             String[] lineSplit = s.split(",", 3);
             crewMember.setId(++id);
-            crewMember.setRole(lineSplit[0]);
+            crewMember.setRole(Role.getRoleById(Integer.valueOf(lineSplit[0])));
             crewMember.setName(lineSplit[1]);
             crewMember.setRank(lineSplit[2]);
             crewMembers.add (crewMember);

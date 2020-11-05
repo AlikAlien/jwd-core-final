@@ -10,7 +10,7 @@ public enum Role implements BaseEntity {
 
     private final Long id;
 
-    Role(Long id) {
+    Role (Long id) {
         this.id = id;
     }
 
@@ -22,16 +22,34 @@ public enum Role implements BaseEntity {
     /**
      * todo via java.lang.enum methods!
      */
+
     @Override
     public String getName() {
         return null;
     }
-
     /**
      * todo via java.lang.enum methods!
      * @throws UnknownEntityException if such id does not exist
      */
-    public static Role resolveRoleById(int id) {
-        return null;
+
+    public static Role getRoleById (int id) {
+        Role role= null;
+        switch (id) {
+            case 1:
+                role = Role.MISSION_SPECIALIST;
+                break;
+            case 2:
+                role = Role.FLIGHT_ENGINEER;
+                break;
+            case 3:
+                role =  Role.PILOT;
+                break;
+            case 4:
+                role = Role.COMMANDER;
+                break;
+            default:
+                throw new RuntimeException("Unknown index:" + id);
+        }
+        return role;
     }
 }
