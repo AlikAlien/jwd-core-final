@@ -7,6 +7,11 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class NassaMenu implements ApplicationMenu {
+    public static final String STR_RESET = "\u001B[0m";
+    public static final String STR_RED = "\u001B[31m";
+    public static final String STR_GREEN = "\u001B[32m";
+    public static final String STR_YELLOW = "\u001B[33m";
+
     @Override
     public ApplicationContext getApplicationContext() {
         Scanner scanner = new Scanner(System.in);

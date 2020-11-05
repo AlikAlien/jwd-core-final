@@ -31,13 +31,14 @@ public class MissionFactory {
         Map <Role, Short> roleMap = spaceship.getCrew();
         List <CrewMember> members = null;
         for (Role role: roleMap.keySet()){
-            System.out.println(role+" " +roleMap.get(role));
             members = FindCrewImpl.FIND_CREW.findCrew(CrewMemberFactory.CREW_FACTORY.create(role, roleMap.get(role)));
         }
         flightMission.setAssignedCrew (members);
         flightMissions.add(flightMission);
-        System.out.println("CREATED MISSION ID "+ id +" DESTINATION: " +star+ " DISTANCE: "+ dist );
-        System.out.println("START DATE: "+ flightMission.getStartDate() +" STARSHIP: "+flightMission.getAssignedSpaceShift().getName()+" CREW: - "+ dist+ " STATUS: "+ flightMission.getMissionResult()+"\n");
+        System.out.print("CREATED MISSION ID: "+ id +" DESTINATION: " +star+ " DISTANCE: "+ dist );
+        System.out.print(" START DATE: "+ flightMission.getStartDate() +" STARSHIP: "+flightMission.getAssignedSpaceShift().getName()+" Range: "+flightMission.getAssignedSpaceShift().getFlightDistance()+" STATUS: "+ flightMission.getMissionResult()+"\nCREW: ");
+        for (Role role: roleMap.keySet()){System.out.print(role+":" +roleMap.get(role)+" ");}
+        System.out.println();
     }
 
     public void cancelMission(){}

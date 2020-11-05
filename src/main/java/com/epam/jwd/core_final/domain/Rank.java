@@ -13,12 +13,10 @@ public enum Rank implements BaseEntity {
     Rank(Long id) {
         this.id = id;
     }
-
     @Override
     public Long getId() {
         return id;
     }
-
     /**
      * todo via java.lang.enum methods!
      */
@@ -26,13 +24,29 @@ public enum Rank implements BaseEntity {
     public String getName() {
         return null;
     }
-
     /**
      * todo via java.lang.enum methods!
      *
      * @throws UnknownEntityException if such id does not exist
      */
-    public static Rank resolveRankById(int id) {
-        return null;
+    public static Rank getRankById(int id) {
+            Rank rank= null;
+            switch (id) {
+                case 1:
+                    rank = Rank.TRAINEE;
+                    break;
+                case 2:
+                    rank = Rank.SECOND_OFFICER;
+                    break;
+                case 3:
+                    rank =  Rank.FIRST_OFFICER;
+                    break;
+                case 4:
+                    rank = Rank.CAPTAIN;
+                    break;
+                default:
+                    throw new RuntimeException("Unknown index:" + id);
+            }
+            return rank;
     }
 }

@@ -1,11 +1,14 @@
 package com.epam.jwd.core_final.context.impl;
 
+import com.epam.jwd.core_final.domain.FlightMission;
 import com.epam.jwd.core_final.domain.Route;
 import com.epam.jwd.core_final.factory.impl.MissionFactory;
 import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.Scanner;
 
-public class NassaMenuCreate {
+public class NassaMenuCreate extends NassaMenu{
     static void nenuCreate(int option ) {
         int o = option;
         System.out.println("\n#ID  #ROUTE DESTINATION  #DISTANCE  ");
@@ -19,20 +22,24 @@ public class NassaMenuCreate {
                 id = scanner.nextLong();
                 if (id == 0) return;
                 Long finalId = id;
-                Route route = NassaContext.NASSA_CONTEXT.getRoutes().stream()
+                try { Optional.ofNullable(NassaContext.NASSA_CONTEXT.getRoutes().stream()
                         .filter(f -> f.getIdRoute() == finalId)
-                        .findFirst().get();
-                if (route!=null){
+                        .findFirst().get());
+
+                    Route route = NassaContext.NASSA_CONTEXT.getRoutes().stream()
+                            .filter(f -> f.getIdRoute() == finalId)
+                            .findFirst().get();
                     MissionFactory.MISSION_FACTORY.createMission(route.getRoureDistance(), route.getName());
                 }
-                else{
-                    System.out.println("BAD ROUTE. TRY AGAIN..");
+                catch (NoSuchElementException e){
+                    System.out.println(STR_RED+"BAD ID ROUTE \""+ finalId+"\", OR NO SHIPS AVAILABLE FOR THIS ROUTE, TRY AGAIN.."+STR_RESET);
                 }
+
             } catch (
                     InputMismatchException e) {
-                System.out.println("BAD INPUT. TRY AGAIN..");
+                System.out.println(STR_RED+"BAD INPUT. TRY AGAIN.."+STR_RESET);
+                scanner.next();
             }
-
         }
     }
 }
