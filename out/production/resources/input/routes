@@ -1,7 +1,7 @@
 #rank;name;distanse
 1;Sirius;8600
 2;Canopus;310000
-3;Rigil Kentaurus & Toliman;4400
+3;Rigil;4400
 4;Arcturus;37000
 5;Vega;25000
 6;Capella;43000
@@ -22,5 +22,5 @@
 21;Regulus;79000
 22;Adhara;430000
 23;Shaula;570000
-24;Castor Alpha Geminorum;52000
-25;Gacrux Gamma Crucis;88000
+24;Castor;52000
+25;Gacrux;88000

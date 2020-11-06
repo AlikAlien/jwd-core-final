@@ -31,6 +31,7 @@ public class ApplicationProperties {
     final int fileRefreshRate = parseInt(PropertyReaderUtil.READER_UTIL.loadProperties("fileRefreshRate"));
     final String dateTimeFormat = PropertyReaderUtil.READER_UTIL.loadProperties("dateTimeFormat");
     final String routeFileName = PropertyReaderUtil.READER_UTIL.loadProperties("routeFileName");
+    final String missionsRefreshRate = PropertyReaderUtil.READER_UTIL.loadProperties("missionsRefreshRate");
 
     public String getInputRootDir() {
         return inputRootDir;
@@ -62,5 +63,9 @@ public class ApplicationProperties {
 
     public String getRouteFileName() {
         return routeFileName;
+    }
+
+    public String getMissionsRefreshRate() {
+        return missionsRefreshRate;
     }
 }

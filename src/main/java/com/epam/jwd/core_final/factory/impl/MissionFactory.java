@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class MissionFactory {
     public static final MissionFactory MISSION_FACTORY = new MissionFactory();
@@ -21,7 +22,8 @@ public class MissionFactory {
         flightMission.setId(++id);
         flightMission.setMissionsName (star +" "+ id);
         flightMission.setDistance(dist);
-        flightMission.setStartDate();
+        flightMission.setStartDateTime();
+        flightMission.setEndDateTime(dist);
         flightMission.setMissionResult(MissionResult.IN_PROGRESS);
         //select starship
         Spaceship spaceship = FindStarshipImpl.FIND_STARSHIP.findStarship (SpaceshipFactory.SPACESHIP_FACTORY.create(dist,isReady));
@@ -29,23 +31,32 @@ public class MissionFactory {
         flightMission.setAssignedSpaceShift(spaceship);
         //select crew
         Map <Role, Short> roleMap = spaceship.getCrew();
-        List <CrewMember> members = null;
+        List <CrewMember> members = new ArrayList<>();
         for (Role role: roleMap.keySet()){
-            members = FindCrewImpl.FIND_CREW.findCrew(CrewMemberFactory.CREW_FACTORY.create(role, roleMap.get(role)));
+            members.addAll(FindCrewImpl.FIND_CREW.findCrew(CrewMemberFactory.CREW_FACTORY.create(role, roleMap.get(role))));
         }
         flightMission.setAssignedCrew (members);
+
         flightMissions.add(flightMission);
-        System.out.print("CREATED MISSION ID: "+ id +" DESTINATION: " +star+ " DISTANCE: "+ dist );
-        System.out.print(" START DATE: "+ flightMission.getStartDate() +" STARSHIP: "+flightMission.getAssignedSpaceShift().getName()+" Range: "+flightMission.getAssignedSpaceShift().getFlightDistance()+" STATUS: "+ flightMission.getMissionResult()+"\nCREW: ");
-        for (Role role: roleMap.keySet()){System.out.print(role+":" +roleMap.get(role)+" ");}
-        System.out.println();
+        printCreatedMissions(flightMission, star, dist, roleMap);
     }
-
-    public void cancelMission(){}
-
-    public void saveMission(){}
 
     public Collection<FlightMission> getFlightMissions() {
         return flightMissions;
+    }
+
+    void printCreatedMissions(FlightMission flightMission, String star, Long dist, Map <Role, Short> roleMap){
+        System.out.print("CREATED MISSION ID:"+ id +"  DESTINATION:" +star+ "  DISTANCE:"+ dist );
+        System.out.print("  STARSHIP:"+flightMission.getAssignedSpaceShift().getName()+
+                "  START_DATE:" + NassaContext.NASSA_CONTEXT.dateFormat.format(flightMission.getStartDateTime() ) +
+                "  END_DATE:" + NassaContext.NASSA_CONTEXT.dateFormat.format(flightMission.getEndDateTime()) +
+                "  RANGE: "+flightMission.getAssignedSpaceShift().getFlightDistance()+"  STATUS:"+ flightMission.getMissionResult());
+
+        for (Role role: roleMap.keySet()){
+            System.out.print("\n"+roleMap.get(role)+" " + role.getName()+"(s): ");
+            flightMission.getAssignedCrew().stream()
+                    .filter(f->f.getRole().equals(role))
+                    .forEach(f-> System.out.print(f.getName()+"   "));
+        }
     }
 }

@@ -1,6 +1,9 @@
 package com.epam.jwd.core_final.factory.impl;
 import com.epam.jwd.core_final.criteria.CrewMemberCriteria;
 import com.epam.jwd.core_final.domain.CrewMember;
+import com.epam.jwd.core_final.domain.Rank;
+import com.epam.jwd.core_final.domain.Role;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -19,8 +22,8 @@ public class FindCrewImpl {
                 .filter (f -> f.isReadyForNextMissions() == criteria.byIsReady())
                 .limit(criteria.byNum())
                 .peek(f -> f.setReadyForNextMissions(false))
+                //.peek(f-> System.out.println(f.getRole().getName()+": "+f.getName()))
                 .collect (Collectors.toCollection (ArrayList::new));
-
         return crewMembers;
     }
 }

@@ -1,6 +1,5 @@
 package com.epam.jwd.core_final.context.impl;
 
-import com.epam.jwd.core_final.domain.FlightMission;
 import com.epam.jwd.core_final.domain.Route;
 import com.epam.jwd.core_final.factory.impl.MissionFactory;
 import java.util.InputMismatchException;
@@ -25,19 +24,17 @@ public class NassaMenuCreate extends NassaMenu{
                 try { Optional.ofNullable(NassaContext.NASSA_CONTEXT.getRoutes().stream()
                         .filter(f -> f.getIdRoute() == finalId)
                         .findFirst().get());
-
                     Route route = NassaContext.NASSA_CONTEXT.getRoutes().stream()
                             .filter(f -> f.getIdRoute() == finalId)
                             .findFirst().get();
                     MissionFactory.MISSION_FACTORY.createMission(route.getRoureDistance(), route.getName());
                 }
                 catch (NoSuchElementException e){
-                    System.out.println(STR_RED+"BAD ID ROUTE \""+ finalId+"\", OR NO SHIPS AVAILABLE FOR THIS ROUTE, TRY AGAIN.."+STR_RESET);
+                    System.out.println(RED +"BAD ID ROUTE \""+ finalId+"\", OR NO SHIPS AVAILABLE FOR THIS ROUTE, TRY AGAIN.."+ RST);
                 }
-
             } catch (
                     InputMismatchException e) {
-                System.out.println(STR_RED+"BAD INPUT. TRY AGAIN.."+STR_RESET);
+                System.out.println(RED +"BAD INPUT. TRY AGAIN.."+ RST);
                 scanner.next();
             }
         }

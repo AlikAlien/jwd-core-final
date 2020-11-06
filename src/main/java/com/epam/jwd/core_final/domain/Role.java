@@ -25,7 +25,17 @@ public enum Role implements BaseEntity {
 
     @Override
     public String getName() {
-        return null;
+        return getName(this.id);
+    }
+
+    public static String getName(Long id) {
+        String roleName = null;
+        if (id==1L) roleName = "SPECIALIST";
+        if (id==2L) roleName = "ENGINEER";
+        if (id==3L) roleName = "PILOT";
+        if (id==4L) roleName = "COMMANDER";
+        if (roleName == null) System.out.println("incorrect iD");
+        return roleName;
     }
     /**
      * todo via java.lang.enum methods!

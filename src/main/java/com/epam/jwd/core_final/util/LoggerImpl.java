@@ -6,5 +6,4 @@ import org.slf4j.LoggerFactory;
 public class LoggerImpl {
     public static final Logger LOGGER = LoggerFactory.getLogger ( LoggerImpl.class );
     private LoggerImpl() {}
-
 }

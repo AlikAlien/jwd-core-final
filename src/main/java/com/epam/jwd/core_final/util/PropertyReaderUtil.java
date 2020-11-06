@@ -28,7 +28,6 @@ public final class PropertyReaderUtil {
             catch (IOException e)
             {
                 System.out.println("File Properties non exist");
-                //LOGGER.error("File Properties non exist");
             }
             return result;
         }

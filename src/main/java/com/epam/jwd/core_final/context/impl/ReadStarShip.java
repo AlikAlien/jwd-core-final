@@ -1,7 +1,7 @@
 package com.epam.jwd.core_final.context.impl;
 
 import com.epam.jwd.core_final.context.ApplicationContexStrategy;
-import com.epam.jwd.core_final.context.ReadSpaceShipStrategy;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
