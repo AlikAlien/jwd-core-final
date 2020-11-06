@@ -49,7 +49,7 @@ public class NassaMenu implements ApplicationMenu {
                 UpdateTask.UPDATER.cancelUpd();
                 break;
             default:
-                LoggerImpl.LOGGER.info("BAD OPTIONS, PLEASE TRY AGAIN..");
+                LoggerImpl.LOGGER.info(YELLOW+"BAD OPTIONS, PLEASE TRY AGAIN.."+RST);
                 break;
         }
         return 0;
