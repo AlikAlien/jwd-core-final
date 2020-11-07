@@ -6,7 +6,6 @@ import com.epam.jwd.core_final.domain.CrewMember;
 import com.epam.jwd.core_final.domain.Route;
 import com.epam.jwd.core_final.domain.Spaceship;
 import com.epam.jwd.core_final.exception.InvalidStateException;
-
 import java.io.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -23,6 +22,7 @@ public class NassaContext implements ApplicationContext {
     private Collection <Spaceship> spaceships = new ArrayList<>();
     private Collection <Route> routes = new ArrayList<>();
     public DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(APP_PROPERTIES.getDateTimeFormat());
+    public DateTimeFormatter dateFileFormat = DateTimeFormatter.ofPattern(APP_PROPERTIES.getDateTimeFileFormat());
 
     ApplicationContexStrategy applicationContexStrategy = new ApplicationContexStrategy() {
     @Override

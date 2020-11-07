@@ -13,9 +13,11 @@ import java.util.stream.Collectors;
 public class MissionFactory {
     public static final MissionFactory MISSION_FACTORY = new MissionFactory();
     private MissionFactory() {}
+
     Long id = 0L;
     boolean isReady = true;
-    private Collection<FlightMission> flightMissions = new ArrayList<>();
+    private Collection <FlightMission> flightMissions = new ArrayList<>();
+    public float capacityCrew = ApplicationProperties.APP_PROPERTIES.getCapacityCrew();
 
     public void createMission(Long dist, String star){
         FlightMission flightMission = new FlightMission();
@@ -25,18 +27,23 @@ public class MissionFactory {
         flightMission.setStartDateTime();
         flightMission.setEndDateTime(dist);
         flightMission.setMissionResult(MissionResult.IN_PROGRESS);
-        //select starship
+        //SELECT STARSHIP
         Spaceship spaceship = FindStarshipImpl.FIND_STARSHIP.findStarship (SpaceshipFactory.SPACESHIP_FACTORY.create(dist,isReady));
-        spaceship.setReadyForNextMissions(false);
+
+        spaceship.addiDMission(id);
         flightMission.setAssignedSpaceShift(spaceship);
-        //select crew
+        //SELECT CREW
         Map <Role, Short> roleMap = spaceship.getCrew();
         List <CrewMember> members = new ArrayList<>();
         for (Role role: roleMap.keySet()){
-            members.addAll(FindCrewImpl.FIND_CREW.findCrew(CrewMemberFactory.CREW_FACTORY.create(role, roleMap.get(role))));
-        }
-        flightMission.setAssignedCrew (members);
 
+            members.addAll(
+                    FindCrewImpl.FIND_CREW.findCrew(CrewMemberFactory.CREW_FACTORY.create(role, roleMap.get(role))));
+        }
+
+        flightMission.setAssignedCrew (members);
+        spaceship.setReadyForNextMissions(false);
+        members.stream().forEach(f->f.setReadyForNextMissions(false));
         flightMissions.add(flightMission);
         printCreatedMissions(flightMission, star, dist, roleMap);
     }
@@ -58,5 +65,11 @@ public class MissionFactory {
                     .filter(f->f.getRole().equals(role))
                     .forEach(f-> System.out.print(f.getName()+"   "));
         }
+    }
+    public String getMissionName(Long id) {
+        FlightMission flightMission = flightMissions.stream()
+                .filter(f -> f.getId() == id)
+                .findFirst().get();
+        return flightMission.getMissionsName() +"  RANGE:"+ flightMission.getDistance() +"  RESULT:"+flightMission.getMissionResult();
     }
 }

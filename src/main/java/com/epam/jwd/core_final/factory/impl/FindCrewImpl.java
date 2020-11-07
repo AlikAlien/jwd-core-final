@@ -15,14 +15,11 @@ public class FindCrewImpl {
 
     public List <CrewMember> findCrew (CrewMemberCriteria criteria){            //used Optional for criteria
         //Optional<> spaceship = Optional.ofNullable(criteria.getFigure());
-
         List <CrewMember> crewMembers =
                 criteria.getCrewMembers().stream()
                 .filter (f -> f.getRole().equals(criteria.byRole()))
                 .filter (f -> f.isReadyForNextMissions() == criteria.byIsReady())
-                .limit(criteria.byNum())
-                .peek(f -> f.setReadyForNextMissions(false))
-                //.peek(f-> System.out.println(f.getRole().getName()+": "+f.getName()))
+                .limit((long) Math.ceil(criteria.byNum()*MissionFactory.MISSION_FACTORY.capacityCrew))
                 .collect (Collectors.toCollection (ArrayList::new));
         return crewMembers;
     }

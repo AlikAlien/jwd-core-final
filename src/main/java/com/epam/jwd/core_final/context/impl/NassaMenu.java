@@ -15,17 +15,18 @@ public class NassaMenu implements ApplicationMenu {
 
     @Override
     public ApplicationContext getApplicationContext() {
-        UpdateTask.UPDATER.upd();
+        UpdateTask.UPDATER.updMission();
         Scanner scanner = new Scanner(System.in);
         int option = 0;
-        while (option != 4){
+        while (option != 5){
             printAvailableOptions(0);
             try {
                 option = scanner.nextInt();
                 handleUserInput(option);
             }
             catch (InputMismatchException exception) {
-               LoggerImpl.LOGGER.error(RED+"BAD INPUT, TRY AGAIN.."+RST);
+                System.out.println(RED+"BAD INPUT, TRY AGAIN.."+RST);
+               LoggerImpl.LOGGER.error("BAD INPUT, TRY AGAIN..");
                scanner.next();
             }
         }
@@ -36,20 +37,25 @@ public class NassaMenu implements ApplicationMenu {
         int o = option;
         switch (o){
             case 1: //VIEW MISSION
-                NassaMenuView.menuView();
+                NassaMenuMissions.menuView();
                 break;
             case 2: //CREATE MISSION
                 NassaMenuCreate.nenuCreate(option);
                 break;
-            case 3: //SAVE
-                NassaMenuSave.nassaSave();
+            case 3: //VIEW SPASESHIPS
+                NassaMenuViewShips.menuViewSpaceships();
                 break;
-            case 4: //EXIT
-                LoggerImpl.LOGGER.info("EXIT..");
+            case 4: //VIEW CREWMEMBERS
+                NassaMenuViewCrew.menuViewCrew();
+                break;
+            case 5: //EXIT
                 UpdateTask.UPDATER.cancelUpd();
+                System.out.println("EXIT..");
+                LoggerImpl.LOGGER.info("EXIT..");
                 break;
             default:
-                LoggerImpl.LOGGER.info(YELLOW+"BAD OPTIONS, PLEASE TRY AGAIN.."+RST);
+                System.out.println(YELLOW+"BAD OPTIONS, PLEASE TRY AGAIN.."+RST);
+                LoggerImpl.LOGGER.info("BAD OPTIONS, PLEASE TRY AGAIN..");
                 break;
         }
         return 0;
@@ -58,7 +64,7 @@ public class NassaMenu implements ApplicationMenu {
     public void printAvailableOptions(int i)
 {       String strMenu;
         switch (i) {
-            case 0: strMenu = "PLEASE SELECT OPTION:\n1.VIEW MISSION\n2.CREATE MISSION\n3.SAVE MISSIONS\n4.EXIT\n";
+            case 0: strMenu = "PLEASE SELECT OPTION:\n1.VIEW MISSIONS\n2.CREATE MISSION\n3.VIEW SPACESHIPS\n4.VIEW CREW\n5.EXIT\n";
                 break;
             case 3: strMenu  = "INPUT FILE NAME FOR SAVE:";
                 break;

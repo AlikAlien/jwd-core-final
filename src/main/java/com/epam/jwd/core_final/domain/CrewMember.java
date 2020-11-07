@@ -1,5 +1,8 @@
 package com.epam.jwd.core_final.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Expected fields:
  * <p>
@@ -13,6 +16,7 @@ public class CrewMember extends AbstractBaseEntity {
     //String nameCrew;
     String rank;
     boolean isReadyForNextMissions = true;
+    List <Long> iDMission = new ArrayList<>();
 
     public Role getRole() {
         return role;
@@ -36,5 +40,18 @@ public class CrewMember extends AbstractBaseEntity {
 
     public void setReadyForNextMissions(boolean readyForNextMissions) {
         isReadyForNextMissions = readyForNextMissions;
+    }
+
+    public List<Long> getiDMission() {
+        return iDMission;
+    }
+    public void addiDMission(Long id) {
+        this.iDMission.add(id);
+    }
+    public String getIsBusy(){
+        String isBusy;
+        if (isReadyForNextMissions) isBusy = "FREE";
+        else isBusy ="BUSY";
+        return isBusy;
     }
 }

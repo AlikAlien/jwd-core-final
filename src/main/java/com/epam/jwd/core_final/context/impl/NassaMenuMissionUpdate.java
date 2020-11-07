@@ -6,8 +6,8 @@ import com.epam.jwd.core_final.factory.impl.MissionFactory;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class NassaMenuViewUpdate extends NassaMenu{
-    static void NassaMenuViewCancel(FlightMission flightMission, Long id) {
+public class NassaMenuMissionUpdate extends NassaMenu{
+    static void menuMissionUpdate(FlightMission flightMission, Long id) {
         String o = "-1";
         Scanner scanner = new Scanner(System.in);
         System.out.println("FOR STATUS UPDATE THIS MISSIONS SELECT AND TYPE NEXT OPTION: ("+RED+"C"+RST+")ANCEL, ("+RED+"F"+RST+")AIL, ("+RED+"D"+RST+")ONE, OR TYPE \"0\" FOR EXIT PREVIOUS MENU ");
@@ -20,27 +20,27 @@ public class NassaMenuViewUpdate extends NassaMenu{
             }
             switch (o){
                 case "C":
-                    flightMission.setMissionResult(MissionResult.CANCELLED);
-                    flightMission.setEndDateTime();
-                    flightMission.getAssignedSpaceShift().setReadyForNextMissions(true);
-                    System.out.println("MISSION ID "+id+ " CANCELED");
+                    freeResources(flightMission,MissionResult.CANCELLED);
                     break;
                 case "F":
-                    flightMission.setMissionResult(MissionResult.FAILED);
-                    flightMission.setEndDateTime();
-                    flightMission.getAssignedSpaceShift().setReadyForNextMissions(true);
+                    freeResources(flightMission,MissionResult.FAILED);
                     flightMission.getAssignedSpaceShift().setHasFailedMissions(true);
-                    System.out.println("MISSION ID "+id+ " FAILED");
                     break;
                 case "D":
-                    flightMission.setMissionResult(MissionResult.COMPLETED);
-                    flightMission.setEndDateTime();
-                    flightMission.getAssignedSpaceShift().setReadyForNextMissions(true);
-                    System.out.println("MISSION ID "+id+ " COMPLETED");
+                    freeResources(flightMission, MissionResult.COMPLETED);
                     break;
                 default:
                     System.out.println("BAD OPTION, SELECT ("+RED+"C"+RST+")ANCEL, ("+RED+"F"+RST+")AIL, ("+RED+"D"+RST+")ONE, OR \"0\" AND TRY AGAIN..");
             }
         }
+    }
+
+    public static void freeResources(FlightMission flightMission, MissionResult result ){
+        flightMission.setMissionResult(result);
+        flightMission.setEndDateTime();
+        flightMission.getAssignedSpaceShift().setReadyForNextMissions(true);
+        flightMission.getAssignedCrew().stream()
+                .forEach(f->f.setReadyForNextMissions(true));
+        System.out.println("MISSION ID#"+flightMission.getId()+" "+ result.toString());
     }
 }

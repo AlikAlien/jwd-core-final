@@ -1,5 +1,7 @@
 package com.epam.jwd.core_final.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,6 +13,7 @@ public class Spaceship extends AbstractBaseEntity {
     //todo
     public Map <Role, Short> crew ;
     Long flightDistance;
+    List<Long> iDMission = new ArrayList<>();
     boolean isReadyForNextMissions = true;
     boolean hasFailedMissions = false;
 
@@ -41,7 +44,29 @@ public class Spaceship extends AbstractBaseEntity {
     public void setHasFailedMissions(boolean hasFailedMissions) {
         this.hasFailedMissions = hasFailedMissions;
     }
+
     public boolean isHasFailedMissions() {
         return hasFailedMissions;
+    }
+
+    public List<Long> getiDMission() {
+        return iDMission;
+    }
+
+    public void addiDMission(Long id) {
+        this.iDMission.add(id);
+    }
+
+    public String getIsBusy(){
+        String isBusy;
+        if (isReadyForNextMissions) isBusy = "FREE";
+        else isBusy ="BUSY";
+        return isBusy;
+    }
+    public String getIsHasFailed(){
+        String status;
+        if (hasFailedMissions) status = "YES,HAS FAILED";
+        else status ="NO,ONLY SUCCESSFUL";
+        return status;
     }
 }

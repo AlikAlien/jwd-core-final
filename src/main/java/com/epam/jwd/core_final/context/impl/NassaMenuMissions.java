@@ -6,27 +6,27 @@ import com.epam.jwd.core_final.util.LoggerImpl;
 
 import java.util.*;
 
-public class NassaMenuView extends NassaMenu {
+public class NassaMenuMissions extends NassaMenu {
     static void menuView() {
         Long id = -1L;
+
         Scanner scanner = new Scanner(System.in);
         while (id != 0) {
             try {
                 printListAllMissions();
-                System.out.println("\nSELECT AND TYPE ID MISSION FOR DETAIL VIEW, OR \"0\" FOR MAIN MENU");
-                id = scanner.nextLong();
-                if (id == 0) return;
-                Long finalId = id;
+                System.out.println("\nSELECT AND TYPE ID MISSION FOR DETAIL VIEW, ("+RED+"S"+RST+")AVE FOR SAVE ALL MISSIONS, OR "+RED+"0"+RST+" FOR RETURN TO MAIN MENU");
+                String opt = scanner.next();
+                if (opt.equals("0")) return;
+                if (opt.equals("S")) {JsonWriter.JSON_WRITER.nassaSave();return;}
                 try {
+                    Long finalId = Long.valueOf(opt);
                     Optional.ofNullable(MissionFactory.MISSION_FACTORY.getFlightMissions().stream()
                             .filter(f -> f.getId() == finalId)
                             .findFirst().get());
                     FlightMission flightMission = printDetailMissions(finalId);
-
-                    NassaMenuViewUpdate.NassaMenuViewCancel(flightMission, finalId);  //MENU FOR UPDATE
-
-                } catch (NoSuchElementException e) {
-                    LoggerImpl.LOGGER.info(RED + "BAD ID MISSION, TRY AGAIN.." + RST);
+                    NassaMenuMissionUpdate.menuMissionUpdate(flightMission, finalId);  //MENU FOR UPDATE
+                } catch (NoSuchElementException |NumberFormatException e) {
+                    LoggerImpl.LOGGER.info(RED + "BAD ID MISSION, TRY AGAIN.." + RST+" "+id);
                 }
             } catch (
                     InputMismatchException e) {
@@ -59,8 +59,8 @@ public class NassaMenuView extends NassaMenu {
                 "  STATUS:" + fligh.getMissionResult());
 
         fligh.getAssignedCrew().stream()
-                .forEach(f -> System.out.print(f.getRole().getName() + "  " + f.getName()));
-        System.out.println();
+                .forEach(f -> System.out.printf(" "+f.getRole().getName() + " " + f.getName()));
+        System.out.println("\n");
     return fligh;
     }
 }
