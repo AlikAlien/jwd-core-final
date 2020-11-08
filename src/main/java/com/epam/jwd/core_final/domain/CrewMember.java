@@ -26,8 +26,8 @@ public class CrewMember extends AbstractBaseEntity {
         this.role = role;
     }
 
-    public String getRank() {
-        return rank;
+    public int getRank() {
+        return Integer.valueOf(rank);
     }
 
     public void setRank(String rank) {

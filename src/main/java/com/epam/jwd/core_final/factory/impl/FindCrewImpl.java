@@ -1,11 +1,8 @@
 package com.epam.jwd.core_final.factory.impl;
 import com.epam.jwd.core_final.criteria.CrewMemberCriteria;
 import com.epam.jwd.core_final.domain.CrewMember;
-import com.epam.jwd.core_final.domain.Rank;
-import com.epam.jwd.core_final.domain.Role;
-
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,13 +11,17 @@ public class FindCrewImpl {
     private FindCrewImpl(){}
 
     public List <CrewMember> findCrew (CrewMemberCriteria criteria){            //used Optional for criteria
-        //Optional<> spaceship = Optional.ofNullable(criteria.getFigure());
-        List <CrewMember> crewMembers =
-                criteria.getCrewMembers().stream()
+        Long limitCapacity = (long) Math.ceil(criteria.byNum()*MissionFactory.MISSION_FACTORY.capacityCrew);
+        List <CrewMember> crewMembers =  new ArrayList<>(criteria.getCrewMembers());
+        Collections.shuffle(crewMembers);
+        List <CrewMember> crewMembersRnd = crewMembers.stream()
                 .filter (f -> f.getRole().equals(criteria.byRole()))
                 .filter (f -> f.isReadyForNextMissions() == criteria.byIsReady())
-                .limit((long) Math.ceil(criteria.byNum()*MissionFactory.MISSION_FACTORY.capacityCrew))
+                .limit(limitCapacity)
                 .collect (Collectors.toCollection (ArrayList::new));
-        return crewMembers;
+        if (crewMembersRnd.size() < limitCapacity) {
+            return null;
+        }
+        return crewMembersRnd;
     }
 }

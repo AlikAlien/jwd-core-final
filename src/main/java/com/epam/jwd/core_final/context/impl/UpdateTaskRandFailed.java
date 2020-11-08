@@ -4,46 +4,40 @@ import com.epam.jwd.core_final.domain.FlightMission;
 import com.epam.jwd.core_final.domain.MissionResult;
 import com.epam.jwd.core_final.factory.impl.MissionFactory;
 import com.epam.jwd.core_final.util.LoggerImpl;
-
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.stream.Collectors;
+import static com.epam.jwd.core_final.context.impl.NassaMenu.*;
 
 import static com.epam.jwd.core_final.domain.ApplicationProperties.APP_PROPERTIES;
 
-public class UpdateTask {
-    public static final UpdateTask UPDATER = new UpdateTask();
-    private UpdateTask() {}
+public class UpdateTaskRandFailed {
+    public static final UpdateTaskRandFailed UPDATER = new UpdateTaskRandFailed();
+    private UpdateTaskRandFailed() {}
     TimerTask updater;
     public Timer timer;
     public void updMission() {
         updater = new TimerTask() {
             public void run() {
-                MissionFactory.MISSION_FACTORY.getFlightMissions().stream()
-                        .filter(f->f.getMissionResult().equals(MissionResult.IN_PROGRESS))
-                        .filter(f-> f.getEndDateTime().isBefore(LocalDateTime.now()))
-                        .forEach(f->{f.setMissionResult(MissionResult.COMPLETED);
-                                        NassaMenuMissionUpdate.freeResources(f,MissionResult.COMPLETED);
-                                        System.out.println("MISSION ID#"+f.getId()+" "+MissionResult.COMPLETED);
-                                        LoggerImpl.LOGGER.info("MISSION ID#"+f.getId()+" "+MissionResult.COMPLETED);
-                        });
                 List<FlightMission> flightMissionsActive =  MissionFactory.MISSION_FACTORY.getFlightMissions().stream()
                         .filter(f->f.getMissionResult().equals(MissionResult.IN_PROGRESS))
                         .collect(Collectors.toList());
                 Random rand = new Random();
+                if(flightMissionsActive.size()==0) {
+                    LoggerImpl.LOGGER.info("RND FAIL: NO ACTIVE MISSION");
+                    return;}
                 FlightMission f = flightMissionsActive.get(rand.nextInt(flightMissionsActive.size()));
-                NassaMenuMissionUpdate.freeResources(f,MissionResult.FAILED);
-                System.out.println("MISSION ID#"+f.getId()+" "+MissionResult.FAILED);
-                LoggerImpl.LOGGER.info("MISSION ID#"+f.getId()+" "+MissionResult.FAILED);
-                }
+                NassaMenuMissionUpdate.MissionUdpFreeResources(f,MissionResult.FAILED);
+                System.out.println(RED+"INFO MESSAGE: MISSION ID#"+f.getId()+" "+ f.getMissionsName()+" RND "+MissionResult.FAILED+RST);
+                LoggerImpl.LOGGER.info("MISSION ID#"+f.getId()+" "+ f.getMissionsName()+" "+MissionResult.FAILED);
+            }
         };
         try {
-            Long period = Long.valueOf(APP_PROPERTIES.getMissionsRefreshRate());
-            timer = new Timer("UPDATE");
-            timer.scheduleAtFixedRate(updater,10000, period);
+            Long period = Long.valueOf(APP_PROPERTIES.getMissionsRefreshRate())*50; //PERIOD FOR RND FILED
+            timer = new Timer("UPDATE_MISSIONS_FILED");
+            timer.scheduleAtFixedRate(updater,60000, period);
             LoggerImpl.LOGGER.info("START UPDATE TASK..");
         } catch (NumberFormatException e) {
             LoggerImpl.LOGGER.error("WRONG PARAMETER!");

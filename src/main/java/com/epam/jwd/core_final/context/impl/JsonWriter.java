@@ -26,6 +26,7 @@ public class JsonWriter {
             e.printStackTrace();
         }
         LoggerImpl.LOGGER.info("SAVED LIST MISSIONS TO FILE: " +fileName);
+        System.out.println("SAVED LIST MISSIONS TO FILE: " +fileName);
         JsonWriter.JSON_WRITER.jsonWriter(file);
     }
 

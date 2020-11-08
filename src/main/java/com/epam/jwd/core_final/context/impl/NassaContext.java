@@ -17,7 +17,7 @@ import static com.epam.jwd.core_final.domain.ApplicationProperties.APP_PROPERTIE
 public class NassaContext implements ApplicationContext {
     public static final NassaContext NASSA_CONTEXT = new NassaContext(); // change private to public
     public NassaContext(){}
-    // no getters/setters for them //temporaly
+    // no getters/setters for them //temp
     private Collection <CrewMember> crewMembers = new ArrayList<>();
     private Collection <Spaceship> spaceships = new ArrayList<>();
     private Collection <Route> routes = new ArrayList<>();

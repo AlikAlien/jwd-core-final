@@ -10,9 +10,12 @@ import java.util.Scanner;
 public class NassaMenuCreate extends NassaMenu{
     static void nenuCreate(int option ) {
         int o = option;
-        System.out.println("\n#ID  #ROUTE DESTINATION  #DISTANCE  ");
+        System.out.println("\n");
         NassaContext.NASSA_CONTEXT.getRoutes().stream()
-                .forEach(x -> System.out.println(x.getIdRoute() + " " + x.getName() + " " + x.getRoureDistance()));
+                //.forEach(x -> System.out.println(x.getIdRoute() + " " + x.getName() + " " + x.getRoureDistance()));
+                .forEach(x->System.out.printf("ID:%1$-3d ROUTE: %2$-12s DISTANCE: %3$d\n",
+                        x.getIdRoute(),x.getName(),x.getRoureDistance()) );
+
         Long id = -1L;
         Scanner scanner = new Scanner(System.in);
         while (id != 0) {

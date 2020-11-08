@@ -3,7 +3,6 @@ package com.epam.jwd.core_final.context.impl;
 import com.epam.jwd.core_final.context.ApplicationContext;
 import com.epam.jwd.core_final.context.ApplicationMenu;
 import com.epam.jwd.core_final.util.LoggerImpl;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -15,7 +14,8 @@ public class NassaMenu implements ApplicationMenu {
 
     @Override
     public ApplicationContext getApplicationContext() {
-        UpdateTask.UPDATER.updMission();
+        UpdateTaskCompleted.UPDATER.updMission();
+        UpdateTaskRandFailed.UPDATER.updMission();
         Scanner scanner = new Scanner(System.in);
         int option = 0;
         while (option != 5){
@@ -42,14 +42,15 @@ public class NassaMenu implements ApplicationMenu {
             case 2: //CREATE MISSION
                 NassaMenuCreate.nenuCreate(option);
                 break;
-            case 3: //VIEW SPASESHIPS
+            case 3: //VIEW SPACESHIPS
                 NassaMenuViewShips.menuViewSpaceships();
                 break;
-            case 4: //VIEW CREWMEMBERS
+            case 4: //VIEW CREW MEMBERS
                 NassaMenuViewCrew.menuViewCrew();
                 break;
             case 5: //EXIT
-                UpdateTask.UPDATER.cancelUpd();
+                UpdateTaskCompleted.UPDATER.cancelUpd();
+                UpdateTaskRandFailed.UPDATER.cancelUpd();
                 System.out.println("EXIT..");
                 LoggerImpl.LOGGER.info("EXIT..");
                 break;

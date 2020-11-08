@@ -23,7 +23,8 @@ public class NassaMenuMissions extends NassaMenu {
                     Optional.ofNullable(MissionFactory.MISSION_FACTORY.getFlightMissions().stream()
                             .filter(f -> f.getId() == finalId)
                             .findFirst().get());
-                    FlightMission flightMission = printDetailMissions(finalId);
+                    FlightMission flightMission = selectMission(finalId);
+                    MissionFactory.MISSION_FACTORY.printDetailMission(flightMission);
                     NassaMenuMissionUpdate.menuMissionUpdate(flightMission, finalId);  //MENU FOR UPDATE
                 } catch (NoSuchElementException |NumberFormatException e) {
                     LoggerImpl.LOGGER.info(RED + "BAD ID MISSION, TRY AGAIN.." + RST+" "+id);
@@ -37,30 +38,21 @@ public class NassaMenuMissions extends NassaMenu {
     }
 
     static void printListAllMissions() {
-        System.out.println("-------------------------LIST OF ALL MISSIONS--------------------------------- ");
+        System.out.println("-------------------------LIST OF ALL MISSIONS----------------------------------------------------- ");
         MissionFactory.MISSION_FACTORY.getFlightMissions().stream()
-                .forEach(x -> System.out.println("ID:" + x.getId() + "  MISSION:" + x.getMissionsName() + "  DISTANCE:" + x.getDistance() +
-                        "  STARSHIP:" + x.getAssignedSpaceShift().getName() + "  RANGE:" + x.getAssignedSpaceShift().getFlightDistance() +
-                        "  START_DATE:" + NassaContext.NASSA_CONTEXT.dateFormat.format(x.getStartDateTime() ) +
-                        "  END_DATE:" + NassaContext.NASSA_CONTEXT.dateFormat.format(x.getEndDateTime()) +
-                        "  STATUS:" + x.getMissionResult()));
-        System.out.println("------------------------------------------------------------------------------ ");
+                .forEach(x -> System.out.printf("ID#%1$-3d  MISSION: %2$-10s DISTANCE: %3$-7d STARSHIP: %4$-13s " +
+                                "RANGE: %5$-7d START_DATE:%6$s  END_DATE:%7$s STATUS: %8$s\n"
+                        ,x.getId(), x.getMissionsName(), x.getDistance(),
+                         x.getAssignedSpaceShift().getName(), x.getAssignedSpaceShift().getFlightDistance(),
+                         NassaContext.NASSA_CONTEXT.dateFormat.format(x.getStartDateTime()),
+                         NassaContext.NASSA_CONTEXT.dateFormat.format(x.getEndDateTime()),x.getMissionResult()));
+        System.out.println("\n------------------------------------------------------------------------------------------------ ");
     }
 
-    static FlightMission printDetailMissions(Long finalId) {
+    static FlightMission selectMission(Long finalId) {
         FlightMission fligh = MissionFactory.MISSION_FACTORY.getFlightMissions().stream()
                 .filter(f -> f.getId() == finalId)
                 .findFirst().get();
-
-        System.out.println("ID:" + fligh.getId() + "  MISSION:" + fligh.getMissionsName() + "  DISTANCE:" + fligh.getDistance() +
-                "  STARSHIP:" + fligh.getAssignedSpaceShift().getName() + "  RANGE:" + fligh.getAssignedSpaceShift().getFlightDistance() +
-                "  START_DATE:" + NassaContext.NASSA_CONTEXT.dateFormat.format(fligh.getStartDateTime() ) +
-                "  END_DATE:" + NassaContext.NASSA_CONTEXT.dateFormat.format(fligh.getEndDateTime()) +
-                "  STATUS:" + fligh.getMissionResult());
-
-        fligh.getAssignedCrew().stream()
-                .forEach(f -> System.out.printf(" "+f.getRole().getName() + " " + f.getName()));
-        System.out.println("\n");
     return fligh;
     }
 }
