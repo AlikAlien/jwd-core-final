@@ -2,6 +2,8 @@ package com.epam.jwd.core_final.context.impl;
 
 import com.epam.jwd.core_final.context.ApplicationContext;
 import com.epam.jwd.core_final.context.ApplicationMenu;
+import com.epam.jwd.core_final.service.impl.UpdateTaskCompleted;
+import com.epam.jwd.core_final.service.impl.UpdateTaskRandFailed;
 import com.epam.jwd.core_final.util.LoggerImpl;
 import java.util.InputMismatchException;
 import java.util.Scanner;

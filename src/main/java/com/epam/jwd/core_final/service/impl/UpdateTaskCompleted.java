@@ -1,7 +1,8 @@
-package com.epam.jwd.core_final.context.impl;
+package com.epam.jwd.core_final.service.impl;
 
+import com.epam.jwd.core_final.context.impl.NassaMenuMissionUpdate;
 import com.epam.jwd.core_final.domain.MissionResult;
-import com.epam.jwd.core_final.factory.impl.MissionFactory;
+import com.epam.jwd.core_final.factory.impl.MissionCrudImpl;
 import com.epam.jwd.core_final.util.LoggerImpl;
 import java.time.LocalDateTime;
 import java.util.Timer;
@@ -19,11 +20,11 @@ public class UpdateTaskCompleted {
     public void updMission() {
         updater = new TimerTask() {
             public void run() {
-                MissionFactory.MISSION_FACTORY.getFlightMissions().stream()
+                MissionCrudImpl.MISSION_FACTORY.getFlightMissions().stream()
                         .filter(f->f.getMissionResult().equals(MissionResult.IN_PROGRESS))
                         .filter(f-> f.getEndDateTime().isBefore(LocalDateTime.now()))
                         .forEach(f->{f.setMissionResult(MissionResult.COMPLETED);
-                                        NassaMenuMissionUpdate.MissionUdpFreeResources(f,MissionResult.COMPLETED);
+                                        MissionCrudImpl.MISSION_FACTORY.delete(f,MissionResult.COMPLETED);
                                         System.out.println(GREEN+"INFO MESSAGE: MISSION ID#"+f.getId()+" "+ f.getMissionsName()+" AUTO "+MissionResult.COMPLETED+RST);
                                         LoggerImpl.LOGGER.info("MISSION ID#"+f.getId()+" "+ f.getMissionsName()+" "+MissionResult.COMPLETED);
                         });

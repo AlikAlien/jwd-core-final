@@ -1,7 +1,7 @@
 package com.epam.jwd.core_final.context.impl;
 
 import com.epam.jwd.core_final.domain.ApplicationProperties;
-import com.epam.jwd.core_final.factory.impl.MissionFactory;
+import com.epam.jwd.core_final.factory.impl.MissionCrudImpl;
 import com.epam.jwd.core_final.util.LoggerImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
@@ -33,7 +33,7 @@ public class JsonWriter {
     public boolean jsonWriter(File file){
          ObjectMapper mapper = new ObjectMapper();
          try {
-             mapper.writeValue(file, MissionFactory.MISSION_FACTORY.getFlightMissions());
+             mapper.writeValue(file, MissionCrudImpl.MISSION_FACTORY.getFlightMissions());
          } catch (IOException e) {
             e.printStackTrace();
          }

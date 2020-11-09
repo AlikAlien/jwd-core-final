@@ -1,10 +1,11 @@
 package com.epam.jwd.core_final.context.impl;
 
-import com.epam.jwd.core_final.domain.Route;
-import com.epam.jwd.core_final.factory.impl.MissionFactory;
+import com.epam.jwd.core_final.domain.FlightMission;
+import com.epam.jwd.core_final.factory.impl.MissionCrudImpl;
+import com.epam.jwd.core_final.factory.impl.RouteCrudImpl;
+
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class NassaMenuCreate extends NassaMenu{
@@ -12,9 +13,8 @@ public class NassaMenuCreate extends NassaMenu{
         int o = option;
         System.out.println("\n");
         NassaContext.NASSA_CONTEXT.getRoutes().stream()
-                //.forEach(x -> System.out.println(x.getIdRoute() + " " + x.getName() + " " + x.getRoureDistance()));
                 .forEach(x->System.out.printf("ID:%1$-3d ROUTE: %2$-12s DISTANCE: %3$d\n",
-                        x.getIdRoute(),x.getName(),x.getRoureDistance()) );
+                        x.getIdRoute(),x.getName(),x.getRouteDistance()) );
 
         Long id = -1L;
         Scanner scanner = new Scanner(System.in);
@@ -24,13 +24,10 @@ public class NassaMenuCreate extends NassaMenu{
                 id = scanner.nextLong();
                 if (id == 0) return;
                 Long finalId = id;
-                try { Optional.ofNullable(NassaContext.NASSA_CONTEXT.getRoutes().stream()
-                        .filter(f -> f.getIdRoute() == finalId)
-                        .findFirst().get());
-                    Route route = NassaContext.NASSA_CONTEXT.getRoutes().stream()
-                            .filter(f -> f.getIdRoute() == finalId)
-                            .findFirst().get();
-                    MissionFactory.MISSION_FACTORY.createMission(route.getRoureDistance(), route.getName());
+                try {
+                   RouteCrudImpl.ROUTE_CRUD.checkExist(finalId);
+                   FlightMission flightMission = MissionCrudImpl.MISSION_FACTORY.create(RouteCrudImpl.ROUTE_CRUD.create(id));
+                   MissionCrudImpl.MISSION_FACTORY.printDetailItem(flightMission);
                 }
                 catch (NoSuchElementException e){
                     System.out.println(RED +"BAD ID ROUTE \""+ finalId+"\", OR NO SHIPS AVAILABLE FOR THIS ROUTE, TRY AGAIN.."+ RST);

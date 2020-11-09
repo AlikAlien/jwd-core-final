@@ -1,8 +1,9 @@
-package com.epam.jwd.core_final.context.impl;
+package com.epam.jwd.core_final.service.impl;
 
+import com.epam.jwd.core_final.context.impl.NassaMenuMissionUpdate;
 import com.epam.jwd.core_final.domain.FlightMission;
 import com.epam.jwd.core_final.domain.MissionResult;
-import com.epam.jwd.core_final.factory.impl.MissionFactory;
+import com.epam.jwd.core_final.factory.impl.MissionCrudImpl;
 import com.epam.jwd.core_final.util.LoggerImpl;
 import java.util.List;
 import java.util.Random;
@@ -21,7 +22,7 @@ public class UpdateTaskRandFailed {
     public void updMission() {
         updater = new TimerTask() {
             public void run() {
-                List<FlightMission> flightMissionsActive =  MissionFactory.MISSION_FACTORY.getFlightMissions().stream()
+                List<FlightMission> flightMissionsActive =  MissionCrudImpl.MISSION_FACTORY.getFlightMissions().stream()
                         .filter(f->f.getMissionResult().equals(MissionResult.IN_PROGRESS))
                         .collect(Collectors.toList());
                 Random rand = new Random();
@@ -29,7 +30,7 @@ public class UpdateTaskRandFailed {
                     LoggerImpl.LOGGER.info("RND FAIL: NO ACTIVE MISSION");
                     return;}
                 FlightMission f = flightMissionsActive.get(rand.nextInt(flightMissionsActive.size()));
-                NassaMenuMissionUpdate.MissionUdpFreeResources(f,MissionResult.FAILED);
+                MissionCrudImpl.MISSION_FACTORY.delete(f,MissionResult.FAILED);
                 System.out.println(RED+"INFO MESSAGE: MISSION ID#"+f.getId()+" "+ f.getMissionsName()+" RND "+MissionResult.FAILED+RST);
                 LoggerImpl.LOGGER.info("MISSION ID#"+f.getId()+" "+ f.getMissionsName()+" "+MissionResult.FAILED);
             }

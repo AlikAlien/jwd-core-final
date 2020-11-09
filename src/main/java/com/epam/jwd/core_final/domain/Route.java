@@ -3,7 +3,7 @@ package com.epam.jwd.core_final.domain;
 public class Route extends AbstractBaseEntity{
     int idRoute;
     String name;
-    long roureDistance;
+    long routeDistance;
 
     public int getIdRoute() {
         return idRoute;
@@ -21,11 +21,11 @@ public class Route extends AbstractBaseEntity{
         this.name = name;
     }
 
-    public long getRoureDistance() {
-        return roureDistance;
+    public long getRouteDistance() {
+        return routeDistance;
     }
 
-    public void setRoureDistance(Long roureDistance) {
-        this.roureDistance = roureDistance;
+    public void setRouteDistance(Long routeDistance) {
+        this.routeDistance = routeDistance;
     }
 }

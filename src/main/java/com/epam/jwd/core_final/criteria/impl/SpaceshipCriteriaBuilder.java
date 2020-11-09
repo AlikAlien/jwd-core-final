@@ -1,16 +1,16 @@
-package com.epam.jwd.core_final.factory.impl;
+package com.epam.jwd.core_final.criteria.impl;
 
 import com.epam.jwd.core_final.context.impl.NassaContext;
 import com.epam.jwd.core_final.criteria.SpaceshipCriteria;
 
-public class SpaceshipFactory {
-    public static final SpaceshipFactory SPACESHIP_FACTORY = new SpaceshipFactory();
-    private SpaceshipFactory () {}
+public class SpaceshipCriteriaBuilder {
+    public static final SpaceshipCriteriaBuilder SPACESHIP_CRITERIA = new SpaceshipCriteriaBuilder();
+    private SpaceshipCriteriaBuilder () {}
 
-    public SpaceshipCriteria create (Long dist, boolean isready) {
+    public SpaceshipCriteria create (Long dist, boolean isReady) {
         SpaceshipCriteria spaceshipCriteria = new SpaceshipCriteria.Builder(NassaContext.NASSA_CONTEXT.getSpaceships())
                 .byDist(dist)
-                .byIsReady(isready)
+                .byIsReady(isReady)
                 .build();
 
         return spaceshipCriteria;

@@ -1,8 +1,10 @@
 package com.epam.jwd.core_final.factory;
 
+import com.epam.jwd.core_final.domain.AbstractBaseEntity;
 import com.epam.jwd.core_final.domain.BaseEntity;
 
-public interface EntityFactory<T extends BaseEntity> {
+public interface EntityFactory <T extends BaseEntity> {
 
-    T create(Object... args);
+   // T create(Object... args);
+   T create (Object... args);
 }

@@ -2,7 +2,6 @@ package com.epam.jwd.core_final.domain;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,6 +26,7 @@ public class FlightMission extends AbstractBaseEntity {
     Spaceship assignedSpaceShift;
     List <CrewMember> assignedCrew;
     MissionResult missionResult;
+    Route route;              //additional field
 
     public String getMissionsName() {
         return missionsName;
@@ -104,4 +104,11 @@ public class FlightMission extends AbstractBaseEntity {
         this.missionResult = missionResult;
     }
 
+    public Route getRoute() {
+        return route;
+    }
+
+    public void setRoute(Route route) {
+        this.route = route;
+    }
 }

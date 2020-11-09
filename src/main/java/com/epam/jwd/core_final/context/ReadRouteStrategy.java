@@ -21,7 +21,7 @@ public class ReadRouteStrategy {
                 String [] lineSplit = s.split(";", 3);
                 route.setIdRoute(Integer.parseInt(lineSplit[0]));
                 route.setName(lineSplit[1]);
-                route.setRoureDistance(Long.parseLong(lineSplit[2]));
+                route.setRouteDistance(Long.parseLong(lineSplit[2]));
                 routes.add (route);
                 //System.out.println(crewMember.getRole()+" " + crewMember.getNameCrew()+" "+crewMember.getRank());
             }
