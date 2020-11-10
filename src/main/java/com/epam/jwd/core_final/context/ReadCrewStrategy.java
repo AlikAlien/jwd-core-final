@@ -9,10 +9,10 @@ import java.util.Collection;
 import java.util.Scanner;
 
 public class ReadCrewStrategy {
-    public Collection <CrewMember> readBaseEntityList (String filePath ){
+    public Collection <CrewMember> readBaseEntityList (String filePath ) throws IOException  {
         Collection <CrewMember> crewMembers = new ArrayList<>();
         Long id = 0L;
-        try {
+        //try {
             Scanner scanner = new Scanner(new File(filePath));
             scanner.nextLine();
             String s;
@@ -26,15 +26,9 @@ public class ReadCrewStrategy {
             crewMember.setName(lineSplit[1]);
             crewMember.setRank(lineSplit[2]);
             crewMembers.add (crewMember);
-            //System.out.println(crewMember.getRole()+" " + crewMember.getNameCrew()+" "+crewMember.getRank());
             }
             scanner.close();
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         return crewMembers;
     }
 }

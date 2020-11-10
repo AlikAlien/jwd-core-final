@@ -6,14 +6,11 @@ import com.epam.jwd.core_final.domain.CrewMember;
 import com.epam.jwd.core_final.domain.Route;
 import com.epam.jwd.core_final.domain.Spaceship;
 import com.epam.jwd.core_final.exception.InvalidStateException;
-import com.epam.jwd.core_final.service.impl.UpdateTaskRandFailed;
-import com.epam.jwd.core_final.service.impl.UpdaterRefreshInput;
-
 import java.io.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
-
+import static com.epam.jwd.core_final.context.impl.NassaMenu.*;
 import static com.epam.jwd.core_final.domain.ApplicationProperties.APP_PROPERTIES;
 
 // todo
@@ -42,14 +39,19 @@ public class NassaContext implements ApplicationContext {
         ReadCrewStrategy readCrewStrategy = new ReadCrewStrategy();
         ReadSpaceShipStrategy readSpaceShipStrategy = new ReadSpaceShipStrategy();
         ReadRouteStrategy readRouteStrategy = new ReadRouteStrategy();
-        if (tClass == CrewMember.class) crewMembers = readCrewStrategy.readBaseEntityList(filePath);
-        if (tClass == Spaceship.class) spaceships = readSpaceShipStrategy.readBaseEntityList(filePath);
-        if (tClass == Route.class) routes = readRouteStrategy.readBaseEntityList(filePath);
+        try {   if (tClass == CrewMember.class) crewMembers = readCrewStrategy.readBaseEntityList(filePath);
+                if (tClass == Spaceship.class) spaceships = readSpaceShipStrategy.readBaseEntityList(filePath);
+                if (tClass == Route.class) routes = readRouteStrategy.readBaseEntityList(filePath);
+        }
+        catch (IOException e) {
+                System.out.println(RED+"FILE ENTITY NOT FOUND " +e.getMessage() +RST);
+                System.exit(0);
+            }
         return null;
     }
 
     @Override
-    public void init() throws InvalidStateException, IOException {
+    public void init() throws IOException {
         retrieveBaseEntityList(CrewMember.class, APP_PROPERTIES.getCrewFileName());
         retrieveBaseEntityList(Spaceship.class, APP_PROPERTIES.getSpaceshipsFileName());
         retrieveBaseEntityList(Route.class, APP_PROPERTIES.getRouteFileName());

@@ -3,7 +3,6 @@ package com.epam.jwd.core_final.context.impl;
 import com.epam.jwd.core_final.domain.FlightMission;
 import com.epam.jwd.core_final.factory.impl.MissionCrudImpl;
 import com.epam.jwd.core_final.factory.impl.RouteCrudImpl;
-
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -37,12 +36,12 @@ public class NassaMenuCreate extends NassaMenu{
                     }
                 }
                 catch (NoSuchElementException e){
-                    System.out.println(RED +"BAD ID ROUTE \""+ finalId+"\", TRY AGAIN.."+ RST);
+                    System.out.println(BADID);
                 }
 
             } catch (
                     InputMismatchException e) {
-                System.out.println(RED +"BAD INPUT. TRY AGAIN.."+ RST);
+                System.out.println(BADINPUT);
                 scanner.next();
             }
         }

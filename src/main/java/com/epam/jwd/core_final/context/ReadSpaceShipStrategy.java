@@ -3,15 +3,13 @@ package com.epam.jwd.core_final.context;
 import com.epam.jwd.core_final.domain.Role;
 import com.epam.jwd.core_final.domain.Spaceship;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
 public class ReadSpaceShipStrategy{
-    public Collection <Spaceship> readBaseEntityList (String filePath){
+    public Collection <Spaceship> readBaseEntityList (String filePath) throws IOException{
         Collection <Spaceship> spaceships = new ArrayList<>();
         Long id = 0L;
-        try {
             Scanner scanner = new Scanner(new File(filePath));
             String s;
             scanner.nextLine();
@@ -39,12 +37,6 @@ public class ReadSpaceShipStrategy{
                 spaceships.add (spaceship);
             }
             scanner.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         return spaceships;
     }
 }

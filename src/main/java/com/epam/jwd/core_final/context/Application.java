@@ -10,12 +10,10 @@ import java.util.function.Supplier;
 
 public interface Application {
 
-    static ApplicationMenu start() throws InvalidStateException, IOException {
+    static ApplicationMenu start() throws IOException {
         final Supplier <ApplicationContext> applicationContextSupplier = null; // todo
         LoggerImpl.LOGGER.info("APPLICATION START..");
-        //final NassaContext nassaContext = new NassaContext();
         NassaContext.NASSA_CONTEXT.init();
-        //nassaContext.init();
         NassaMenu applicationMenu = new NassaMenu();
         applicationMenu.getApplicationContext();
         return null;//applicationContextSupplier::get;

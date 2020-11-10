@@ -6,6 +6,5 @@ public class InvalidStateException extends Exception {
     // todo
     public InvalidStateException (String msg) {
         super(msg);
-        LoggerImpl.LOGGER.error(msg);
     }
 }

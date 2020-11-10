@@ -9,9 +9,8 @@ import java.util.Collection;
 import java.util.Scanner;
 
 public class ReadRouteStrategy {
-    public Collection<Route> readBaseEntityList (String filePath ){
+    public Collection<Route> readBaseEntityList (String filePath ) throws IOException{
         Collection <Route> routes = new ArrayList<>();
-        try {
             Scanner scanner = new Scanner(new File(filePath));
             scanner.nextLine();
             String s;
@@ -23,15 +22,9 @@ public class ReadRouteStrategy {
                 route.setName(lineSplit[1]);
                 route.setRouteDistance(Long.parseLong(lineSplit[2]));
                 routes.add (route);
-                //System.out.println(crewMember.getRole()+" " + crewMember.getNameCrew()+" "+crewMember.getRank());
             }
             scanner.close();
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         return routes;
     }
 }

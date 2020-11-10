@@ -6,15 +6,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class ReadCrew extends NassaContext implements ApplicationContexStrategy {
-    public ReadCrew() throws FileNotFoundException, IOException {
-    }
+    public ReadCrew() {}
 
     @Override
-    public void readBaseEntityList( String filePath){
+    public void readBaseEntityList(String filePath){
         this.applicationContexStrategy = new ApplicationContexStrategy() {
             @Override
             public void readBaseEntityList(String filePath) {
-
             }
         };
     }
