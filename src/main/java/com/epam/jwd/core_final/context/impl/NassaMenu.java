@@ -47,16 +47,16 @@ public class NassaMenu implements ApplicationMenu {
         int o = option;
         switch (o){
             case 1: //VIEW MISSION
-                NassaMenuMissions.menuView();
+                NassaMenuMissionView.menuView();
                 break;
             case 2: //CREATE MISSION
-                NassaMenuCreate.nenuCreate(option);
+                NassaMenuMissionCreate.nenuCreate(option);
                 break;
             case 3: //VIEW SPACESHIPS
-                NassaMenuViewShips.menuViewSpaceships();
+                NassaMenuShipsView.menuViewSpaceships();
                 break;
             case 4: //VIEW CREW MEMBERS
-                NassaMenuViewCrew.menuViewCrew();
+                NassaMenuCrewView.menuViewCrew();
                 break;
             case 5: //EXIT
                 UpdateTaskCompleted.UPDATER.cancelUpd();

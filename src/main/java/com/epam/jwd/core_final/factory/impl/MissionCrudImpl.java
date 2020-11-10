@@ -1,38 +1,25 @@
 package com.epam.jwd.core_final.factory.impl;
 import com.epam.jwd.core_final.context.impl.NassaContext;
-import com.epam.jwd.core_final.criteria.FlightMissionCriteria;
 import com.epam.jwd.core_final.criteria.impl.FlightMissionCriteriaBuilder;
-import com.epam.jwd.core_final.criteria.impl.RouteCriteriaBuilder;
 import com.epam.jwd.core_final.domain.*;
 import com.epam.jwd.core_final.factory.EntityFactory;
 import com.epam.jwd.core_final.service.impl.FindMissionImpl;
-import com.epam.jwd.core_final.service.impl.FindRouteImpl;
 
 import java.util.*;
-
-import static com.epam.jwd.core_final.context.impl.NassaMenu.*;
 
 public class MissionCrudImpl implements EntityFactory {
     public static final MissionCrudImpl MISSION_FACTORY = new MissionCrudImpl();
     private MissionCrudImpl() {}
     Long id = 0L;
-    //boolean isReady = true;
     private Collection <FlightMission> flightMissions = new ArrayList<>();
     public float capacityCrew = ApplicationProperties.APP_PROPERTIES.getCapacityCrew();
 
     public FlightMission create (AbstractBaseEntity obj) throws NullPointerException{
         Route route = null;
         if (obj instanceof Route) route = (Route) obj;
-        Spaceship spaceship = null;
+        Spaceship spaceship = SpaceshipCrudImpl.SPACESHIP_FACTORY.create(route);
+        List <CrewMember> members = CrewMemberCrudImpl.CREW_FACTORY.create(spaceship.getCrew());
 
-        //try {
-            spaceship = SpaceshipCrudImpl.SPACESHIP_FACTORY.create(route);
-        //}
-        //catch (NoSuchElementException | NullPointerException e){
-        //    System.out.println(YELLOW +"NO SHIPS AVAILABLE FOR THIS ROUTE, TRY AGAIN.."+ RST);
-         //   return null;
-       // }
-        List <CrewMember> members = CrewMemberFactory.CREW_FACTORY.create(spaceship.getCrew());
         FlightMission flightMission = new FlightMission();
         flightMission.setId (++id);
         flightMission.setMissionsName (route.getName() +" "+ id);
@@ -46,6 +33,7 @@ public class MissionCrudImpl implements EntityFactory {
         spaceship.setReadyForNextMissions(false);
         spaceship.addiDMission(id);
         members.stream().forEach(f->f.setReadyForNextMissions(false));
+        members.stream().forEach(f->f.addiDMission(id));
         flightMissions.add(flightMission);
         System.out.print("MISSION CREATED  ");
         return flightMission;

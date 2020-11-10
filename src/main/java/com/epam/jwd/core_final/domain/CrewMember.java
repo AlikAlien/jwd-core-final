@@ -2,7 +2,6 @@ package com.epam.jwd.core_final.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  * Expected fields:
  * <p>
@@ -13,8 +12,7 @@ import java.util.List;
 public class CrewMember extends AbstractBaseEntity {
     // todo
     Role role;
-    //String nameCrew;
-    String rank;
+    Rank rank;
     boolean isReadyForNextMissions = true;
     List <Long> iDMission = new ArrayList<>();
 
@@ -26,12 +24,16 @@ public class CrewMember extends AbstractBaseEntity {
         this.role = role;
     }
 
-    public int getRank() {
-        return Integer.valueOf(rank);
+    public void setRole(int i) {
+        this.role = Role.getRoleById(i);
     }
 
-    public void setRank(String rank) {
-        this.rank = rank;
+    public Rank getRank() {
+        return rank;
+    }
+
+    public void setRank(int i) {
+        this.rank = Rank.getRankById(i);;
     }
 
     public boolean isReadyForNextMissions() {

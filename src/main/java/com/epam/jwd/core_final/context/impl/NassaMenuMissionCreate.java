@@ -7,7 +7,7 @@ import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class NassaMenuCreate extends NassaMenu{
+public class NassaMenuMissionCreate extends NassaMenu{
     static void nenuCreate(int option ) {
         int o = option;
         System.out.println("\n");

@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class NassaMenuViewShipsDetail extends NassaMenu{
+public class NassaMenuShipsViewDetail extends NassaMenu{
     static void menuShipsDetail(Long id) {
         Scanner scanner = new Scanner(System.in);
              try {
