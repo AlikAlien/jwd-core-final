@@ -23,19 +23,17 @@ public class ApplicationProperties {
     public static final ApplicationProperties APP_PROPERTIES = new ApplicationProperties();
     private ApplicationProperties(){}
 
-        final String inputRootDir = PropertyReaderUtil.READER_UTIL.loadProperties("inputRootDir");
-        final String outputRootDir = PropertyReaderUtil.READER_UTIL.loadProperties("outputRootDir");
-        ;
-        final String crewFileName = PropertyReaderUtil.READER_UTIL.loadProperties("crewFileName");
-        ;
-        final String missionsFileName = PropertyReaderUtil.READER_UTIL.loadProperties("missionsFileName");
-        final String spaceshipsFileName = PropertyReaderUtil.READER_UTIL.loadProperties("spaceshipsFileName");
-        final int fileRefreshRate = parseInt(PropertyReaderUtil.READER_UTIL.loadProperties("fileRefreshRate"));
-        final String dateTimeFormat = PropertyReaderUtil.READER_UTIL.loadProperties("dateTimeFormat");
-        final String dateTimeFileFormat = PropertyReaderUtil.READER_UTIL.loadProperties("dateTimeFileFormat");
-        final String routeFileName = PropertyReaderUtil.READER_UTIL.loadProperties("routeFileName");
-        final String missionsRefreshRate = PropertyReaderUtil.READER_UTIL.loadProperties("missionsRefreshRate");
-        final float capacityCrew = Float.parseFloat(PropertyReaderUtil.READER_UTIL.loadProperties("capacityCrew"));
+        final String inputRootDir = PropertyReaderUtil.loadProperties("inputRootDir");
+        final String outputRootDir = PropertyReaderUtil.loadProperties("outputRootDir");
+        final String crewFileName = PropertyReaderUtil.loadProperties("crewFileName");
+        final String missionsFileName = PropertyReaderUtil.loadProperties("missionsFileName");
+        final String spaceshipsFileName = PropertyReaderUtil.loadProperties("spaceshipsFileName");
+        final String fileRefreshRate = PropertyReaderUtil.loadProperties("fileRefreshRate");
+        final String dateTimeFormat = PropertyReaderUtil.loadProperties("dateTimeFormat");
+        final String dateTimeFileFormat = PropertyReaderUtil.loadProperties("dateTimeFileFormat");
+        final String routeFileName = PropertyReaderUtil.loadProperties("routeFileName");
+        final String missionsRefreshRate = PropertyReaderUtil.loadProperties("missionsRefreshRate");
+        final float capacityCrew = Float.parseFloat(PropertyReaderUtil.loadProperties("capacityCrew"));
 
     public String getInputRootDir() {
         return inputRootDir;
@@ -57,7 +55,7 @@ public class ApplicationProperties {
         return spaceshipsFileName;
     }
 
-    public int getFileRefreshRate() {
+    public String getFileRefreshRate() {
         return fileRefreshRate;
     }
 
@@ -69,7 +67,7 @@ public class ApplicationProperties {
         return routeFileName;
     }
 
-    public String getMissionsRefreshRate() {
+    public String getMissionsRefresh() {
         return missionsRefreshRate;
     }
 
@@ -80,4 +78,6 @@ public class ApplicationProperties {
     public float getCapacityCrew() {
         return capacityCrew;
     }
+
+
 }

@@ -25,11 +25,11 @@ public class NassaMenuMissions extends NassaMenu {
                     NassaMenuMissionUpdate.menuMissionUpdate(flightMission, finalId);  //MENU FOR UPDATE
 
                 } catch (NoSuchElementException | NumberFormatException e) {
-                    LoggerImpl.LOGGER.info(RED + "BAD ID MISSION, TRY AGAIN.." + RST+" "+id);
+                    System.out.println(RED + "BAD ID MISSION, TRY AGAIN.." + RST+" "+id);
                 }
             } catch (
                     InputMismatchException e) {
-                LoggerImpl.LOGGER.error(RED + "BAD INPUT, TRY AGAIN.." + RST);
+                System.out.println(RED + "BAD INPUT, TRY AGAIN.." + RST);
                 scanner.next();
             }
         }

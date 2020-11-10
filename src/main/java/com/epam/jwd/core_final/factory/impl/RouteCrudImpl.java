@@ -1,6 +1,7 @@
 package com.epam.jwd.core_final.factory.impl;
 
 import com.epam.jwd.core_final.criteria.impl.RouteCriteriaBuilder;
+import com.epam.jwd.core_final.domain.AbstractBaseEntity;
 import com.epam.jwd.core_final.domain.BaseEntity;
 import com.epam.jwd.core_final.domain.Route;
 import com.epam.jwd.core_final.factory.EntityFactory;
@@ -25,7 +26,7 @@ public class RouteCrudImpl implements EntityFactory {
     }
 
     @Override
-    public BaseEntity create(Object... args) {
+    public BaseEntity create(AbstractBaseEntity obj) {
         return null;
     }
 }

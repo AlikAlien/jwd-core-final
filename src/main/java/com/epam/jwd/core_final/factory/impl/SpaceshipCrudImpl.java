@@ -2,17 +2,26 @@ package com.epam.jwd.core_final.factory.impl;
 
 import com.epam.jwd.core_final.context.impl.NassaContext;
 import com.epam.jwd.core_final.criteria.impl.SpaceshipCriteriaBuilder;
+import com.epam.jwd.core_final.domain.AbstractBaseEntity;
 import com.epam.jwd.core_final.domain.Route;
 import com.epam.jwd.core_final.domain.Spaceship;
+import com.epam.jwd.core_final.factory.EntityFactory;
 import com.epam.jwd.core_final.service.impl.FindStarshipImpl;
 
-public class SpaceshipCrudImpl {
+import static com.epam.jwd.core_final.context.impl.NassaMenu.RST;
+import static com.epam.jwd.core_final.context.impl.NassaMenu.YELLOW;
+
+public class SpaceshipCrudImpl implements EntityFactory{
     public static final SpaceshipCrudImpl SPACESHIP_FACTORY = new SpaceshipCrudImpl();
     private SpaceshipCrudImpl() {}
 
-    public Spaceship create (Route route) {
+    public Spaceship create (AbstractBaseEntity obj) {
+        Route route = null;
+        if (obj instanceof Route) route = (Route) obj;
+
         Spaceship spaceship = FindStarshipImpl.FIND_STARSHIP.findAllSpaceshipsByCriteria(
                 SpaceshipCriteriaBuilder.SPACESHIP_CRITERIA.create(route.getRouteDistance(), true));
+        if (spaceship==null) System.out.println(YELLOW+"NOT FREE SPACESHIP FOR ROUTE#"+route.getIdRoute()+RST);
         return spaceship;
     }
 

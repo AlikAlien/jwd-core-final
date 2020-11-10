@@ -15,21 +15,24 @@ import static com.epam.jwd.core_final.context.impl.NassaMenu.*;
 public class MissionCrudImpl implements EntityFactory {
     public static final MissionCrudImpl MISSION_FACTORY = new MissionCrudImpl();
     private MissionCrudImpl() {}
-
     Long id = 0L;
-    boolean isReady = true;
+    //boolean isReady = true;
     private Collection <FlightMission> flightMissions = new ArrayList<>();
     public float capacityCrew = ApplicationProperties.APP_PROPERTIES.getCapacityCrew();
 
-    public FlightMission create (AbstractBaseEntity obj) {
+    public FlightMission create (AbstractBaseEntity obj) throws NullPointerException{
         Route route = null;
         if (obj instanceof Route) route = (Route) obj;
-        Spaceship spaceship = SpaceshipCrudImpl.SPACESHIP_FACTORY.create(route);
-        if (spaceship==null) System.out.println(YELLOW+"NOT FREE SPACESHIP FOR ROUTE#"+route.getIdRoute()+RST);
+        Spaceship spaceship = null;
 
+        //try {
+            spaceship = SpaceshipCrudImpl.SPACESHIP_FACTORY.create(route);
+        //}
+        //catch (NoSuchElementException | NullPointerException e){
+        //    System.out.println(YELLOW +"NO SHIPS AVAILABLE FOR THIS ROUTE, TRY AGAIN.."+ RST);
+         //   return null;
+       // }
         List <CrewMember> members = CrewMemberFactory.CREW_FACTORY.create(spaceship.getCrew());
-        //System.out.println(YELLOW+"WARNING: MISSION NOT CREATED!"+RST);
-
         FlightMission flightMission = new FlightMission();
         flightMission.setId (++id);
         flightMission.setMissionsName (route.getName() +" "+ id);
@@ -61,6 +64,7 @@ public class MissionCrudImpl implements EntityFactory {
     public Collection<FlightMission> getFlightMissions() {
         return flightMissions;
     }
+
     public void printListAll() {
         System.out.println("-------------------------LIST OF ALL MISSIONS----------------------------------------------------- ");
         MissionCrudImpl.MISSION_FACTORY.getFlightMissions().stream()
@@ -74,7 +78,6 @@ public class MissionCrudImpl implements EntityFactory {
     }
 
     public void printDetailItem(FlightMission flightMission){
-
         System.out.print("MISSION ID#"+ id +"  NAME:" +flightMission.getMissionsName()+ "  DISTANCE:"+ flightMission.getDistance() );
         System.out.print("  STARSHIP:"+flightMission.getAssignedSpaceShift().getName()+
                 "  START_DATE:" + NassaContext.NASSA_CONTEXT.dateFormat.format(flightMission.getStartDateTime() ) +
@@ -107,9 +110,5 @@ public class MissionCrudImpl implements EntityFactory {
     public Optional checkExist (Long id) {
         Optional mission = FindMissionImpl.FIND_MISSION.findMissionByCriteria (FlightMissionCriteriaBuilder.MISSION_CRITERIA.create(id));
         return  mission;
-    }
-
-    public BaseEntity create (Object... args) {
-        return null;
     }
 }

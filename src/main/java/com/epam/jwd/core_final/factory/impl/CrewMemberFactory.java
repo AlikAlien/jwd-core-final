@@ -18,7 +18,7 @@ import static com.epam.jwd.core_final.context.impl.NassaMenu.RST;
 import static com.epam.jwd.core_final.context.impl.NassaMenu.YELLOW;
 
 // do the same for other entities
-public class CrewMemberFactory /*implements EntityFactory<CrewMember>*/ {
+public class CrewMemberFactory {
     public static final CrewMemberFactory CREW_FACTORY = new CrewMemberFactory();
     private CrewMemberFactory () {}
 

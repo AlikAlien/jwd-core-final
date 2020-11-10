@@ -1,6 +1,5 @@
 package com.epam.jwd.core_final.service.impl;
 
-import com.epam.jwd.core_final.context.impl.NassaMenuMissionUpdate;
 import com.epam.jwd.core_final.domain.FlightMission;
 import com.epam.jwd.core_final.domain.MissionResult;
 import com.epam.jwd.core_final.factory.impl.MissionCrudImpl;
@@ -17,35 +16,33 @@ import static com.epam.jwd.core_final.domain.ApplicationProperties.APP_PROPERTIE
 public class UpdateTaskRandFailed {
     public static final UpdateTaskRandFailed UPDATER = new UpdateTaskRandFailed();
     private UpdateTaskRandFailed() {}
-    TimerTask updater;
     public Timer timer;
     public void updMission() {
-        updater = new TimerTask() {
+        TimerTask updater = new TimerTask() {
             public void run() {
-                List<FlightMission> flightMissionsActive =  MissionCrudImpl.MISSION_FACTORY.getFlightMissions().stream()
+                List <FlightMission> flightMissionsActive =  MissionCrudImpl.MISSION_FACTORY.getFlightMissions().stream()
                         .filter(f->f.getMissionResult().equals(MissionResult.IN_PROGRESS))
                         .collect(Collectors.toList());
                 Random rand = new Random();
                 if(flightMissionsActive.size()==0) {
-                    LoggerImpl.LOGGER.info("RND FAIL: NO ACTIVE MISSION");
-                    return;}
+                    LoggerImpl.LOGGER.info("RANDOM FAIL MESSAGES: NO ACTIVE MISSION");
+                    return;
+                }
                 FlightMission f = flightMissionsActive.get(rand.nextInt(flightMissionsActive.size()));
                 MissionCrudImpl.MISSION_FACTORY.delete(f,MissionResult.FAILED);
-                System.out.println(RED+"INFO MESSAGE: MISSION ID#"+f.getId()+" "+ f.getMissionsName()+" RND "+MissionResult.FAILED+RST);
+                System.out.println(RED+"MISSION ID#"+f.getId()+" "+ f.getMissionsName()+" "+MissionResult.FAILED+" BY RANDOM CHOICE"+RST);
                 LoggerImpl.LOGGER.info("MISSION ID#"+f.getId()+" "+ f.getMissionsName()+" "+MissionResult.FAILED);
             }
         };
-        try {
-            Long period = Long.valueOf(APP_PROPERTIES.getMissionsRefreshRate())*50; //PERIOD FOR RND FILED
-            timer = new Timer("UPDATE_MISSIONS_FILED");
+
+            Long period = Long.valueOf(APP_PROPERTIES.getMissionsRefresh())*20; //PERIOD FOR RND FAILED in 20
+            timer = new Timer("UPDATE_MISSIONS_FAIL");
             timer.scheduleAtFixedRate(updater,60000, period);
-            LoggerImpl.LOGGER.info("START UPDATE TASK..");
-        } catch (NumberFormatException e) {
-            LoggerImpl.LOGGER.error("WRONG PARAMETER!");
-        }
+            LoggerImpl.LOGGER.info("START RND FAIL TASK..");
+
     }
     public void cancelUpd (){
-        LoggerImpl.LOGGER.info("STOPPED UPDATE TASK..");
+        LoggerImpl.LOGGER.info("STOPPED RANDOM FAIL TASK..");
         timer.cancel();
     }
 }

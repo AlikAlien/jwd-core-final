@@ -4,6 +4,7 @@ import com.epam.jwd.core_final.context.ApplicationContext;
 import com.epam.jwd.core_final.context.ApplicationMenu;
 import com.epam.jwd.core_final.service.impl.UpdateTaskCompleted;
 import com.epam.jwd.core_final.service.impl.UpdateTaskRandFailed;
+import com.epam.jwd.core_final.service.impl.UpdaterRefreshInput;
 import com.epam.jwd.core_final.util.LoggerImpl;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -18,6 +19,7 @@ public class NassaMenu implements ApplicationMenu {
     public ApplicationContext getApplicationContext() {
         UpdateTaskCompleted.UPDATER.updMission();
         UpdateTaskRandFailed.UPDATER.updMission();
+        UpdaterRefreshInput.UPDATER.updInput();
         Scanner scanner = new Scanner(System.in);
         int option = 0;
         while (option != 5){
@@ -27,8 +29,7 @@ public class NassaMenu implements ApplicationMenu {
                 handleUserInput(option);
             }
             catch (InputMismatchException exception) {
-                System.out.println(RED+"BAD INPUT, TRY AGAIN.."+RST);
-               LoggerImpl.LOGGER.error("BAD INPUT, TRY AGAIN..");
+               System.out.println(RED+"BAD INPUT, TRY AGAIN.."+RST);
                scanner.next();
             }
         }
@@ -53,12 +54,12 @@ public class NassaMenu implements ApplicationMenu {
             case 5: //EXIT
                 UpdateTaskCompleted.UPDATER.cancelUpd();
                 UpdateTaskRandFailed.UPDATER.cancelUpd();
+                UpdaterRefreshInput.UPDATER.cancelUpd();
                 System.out.println("EXIT..");
                 LoggerImpl.LOGGER.info("EXIT..");
                 break;
             default:
                 System.out.println(YELLOW+"BAD OPTIONS, PLEASE TRY AGAIN.."+RST);
-                LoggerImpl.LOGGER.info("BAD OPTIONS, PLEASE TRY AGAIN..");
                 break;
         }
         return 0;

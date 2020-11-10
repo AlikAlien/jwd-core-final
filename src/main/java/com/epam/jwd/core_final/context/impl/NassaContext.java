@@ -6,6 +6,9 @@ import com.epam.jwd.core_final.domain.CrewMember;
 import com.epam.jwd.core_final.domain.Route;
 import com.epam.jwd.core_final.domain.Spaceship;
 import com.epam.jwd.core_final.exception.InvalidStateException;
+import com.epam.jwd.core_final.service.impl.UpdateTaskRandFailed;
+import com.epam.jwd.core_final.service.impl.UpdaterRefreshInput;
+
 import java.io.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -55,9 +58,11 @@ public class NassaContext implements ApplicationContext {
     public Collection<CrewMember> getCrewMembers() {
         return crewMembers;
     }
+
     public Collection<Spaceship> getSpaceships() {
         return spaceships;
     }
+
     public Collection<Route> getRoutes() {
         return routes;
     }

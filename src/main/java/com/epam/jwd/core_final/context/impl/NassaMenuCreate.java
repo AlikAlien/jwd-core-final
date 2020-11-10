@@ -24,14 +24,22 @@ public class NassaMenuCreate extends NassaMenu{
                 id = scanner.nextLong();
                 if (id == 0) return;
                 Long finalId = id;
+
                 try {
                    RouteCrudImpl.ROUTE_CRUD.checkExist(finalId);
-                   FlightMission flightMission = MissionCrudImpl.MISSION_FACTORY.create(RouteCrudImpl.ROUTE_CRUD.create(id));
-                   MissionCrudImpl.MISSION_FACTORY.printDetailItem(flightMission);
+
+                   try {
+                        FlightMission flightMission = MissionCrudImpl.MISSION_FACTORY.create(RouteCrudImpl.ROUTE_CRUD.create(id));
+                        MissionCrudImpl.MISSION_FACTORY.printDetailItem(flightMission);
+                    }
+                    catch (NoSuchElementException | NullPointerException e) {
+                        System.out.println(YELLOW + "WARNING: NO SHIPS AVAILABLE FOR THIS ROUTE!" + RST);
+                    }
                 }
                 catch (NoSuchElementException e){
-                    System.out.println(RED +"BAD ID ROUTE \""+ finalId+"\", OR NO SHIPS AVAILABLE FOR THIS ROUTE, TRY AGAIN.."+ RST);
+                    System.out.println(RED +"BAD ID ROUTE \""+ finalId+"\", TRY AGAIN.."+ RST);
                 }
+
             } catch (
                     InputMismatchException e) {
                 System.out.println(RED +"BAD INPUT. TRY AGAIN.."+ RST);

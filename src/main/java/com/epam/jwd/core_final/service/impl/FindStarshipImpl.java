@@ -10,6 +10,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import static com.epam.jwd.core_final.context.impl.NassaMenu.RST;
+import static com.epam.jwd.core_final.context.impl.NassaMenu.YELLOW;
+
 public class FindStarshipImpl implements SpaceshipService {
     public static final FindStarshipImpl FIND_STARSHIP = new FindStarshipImpl();
     private FindStarshipImpl(){}
@@ -20,7 +23,10 @@ public class FindStarshipImpl implements SpaceshipService {
         Spaceship spaceship = spaceships.stream()
                 .filter (f -> f.getFlightDistance() > criteria.byDistance())
                 .filter (f -> f.getisReadyForNextMissions() == criteria.byIsReady())
-                .findFirst().get();
+                .limit(1)
+                .findAny().get();
+                //.findFirst().get();
+        if (spaceship==null) System.out.println(YELLOW+"NOT FREE SPACESHIP FOR ROUTE#"+RST);
         return spaceship;
     }
 
