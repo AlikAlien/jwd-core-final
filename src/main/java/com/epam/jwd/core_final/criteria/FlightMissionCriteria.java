@@ -9,20 +9,20 @@ import java.util.Collection;
  * Should be a builder for {@link com.epam.jwd.core_final.domain.FlightMission} fields
  */
 public class FlightMissionCriteria extends Criteria<FlightMission> {
-    private Collection <FlightMission> missions;
-    private Long id;
+    private final Collection<FlightMission> missions;
+    private final Long id;
     MissionResult result;
 
     public static class Builder {
-        private Collection <FlightMission> missions;
+        private Collection<FlightMission> missions;
         private Long id;
         MissionResult result = null;
 
-        public Builder(Collection <FlightMission> missions) {
+        public Builder(Collection<FlightMission> missions) {
             this.missions = missions;
         }
 
-        public FlightMissionCriteria.Builder routes(Collection <FlightMission> arg) {
+        public FlightMissionCriteria.Builder routes(Collection<FlightMission> arg) {
             missions = arg;
             return this;
         }
@@ -32,23 +32,23 @@ public class FlightMissionCriteria extends Criteria<FlightMission> {
             return this;
         }
 
-        public FlightMissionCriteria.Builder byResult (MissionResult arg){
+        public FlightMissionCriteria.Builder byResult(MissionResult arg) {
             result = arg;
             return this;
         }
 
-        public FlightMissionCriteria build () {
+        public FlightMissionCriteria build() {
             return new FlightMissionCriteria(this);
         }
     }
 
-    private FlightMissionCriteria (FlightMissionCriteria.Builder builder) {
+    private FlightMissionCriteria(FlightMissionCriteria.Builder builder) {
         missions = builder.missions;
         result = builder.result;
         id = builder.id;
     }
 
-    public Collection <FlightMission> getMissions() {
+    public Collection<FlightMission> getMissions() {
         return missions;
     }
 
@@ -56,7 +56,7 @@ public class FlightMissionCriteria extends Criteria<FlightMission> {
         return result;
     }
 
-    public Long byId () {
+    public Long byId() {
         return id;
     }
 }

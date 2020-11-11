@@ -3,9 +3,9 @@ import com.epam.jwd.core_final.domain.Route;
 import java.util.Collection;
 
 public class RouteCriteria {
-    private Collection <Route> routes;
-    private Long id;
-    private Long distance;
+    private final Collection <Route> routes;
+    private final Long id;
+    private final Long distance;
 
     public static class Builder {
         private Collection<Route> routes;

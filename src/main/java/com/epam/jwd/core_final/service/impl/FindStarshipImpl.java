@@ -15,18 +15,19 @@ import static com.epam.jwd.core_final.context.impl.NassaMenu.YELLOW;
 
 public class FindStarshipImpl implements SpaceshipService {
     public static final FindStarshipImpl FIND_STARSHIP = new FindStarshipImpl();
-    private FindStarshipImpl(){}
 
-    public Spaceship findAllSpaceshipsByCriteria(SpaceshipCriteria criteria){            //used Optional for find
-        List<Spaceship> spaceships =  new ArrayList<>(criteria.getSpaceships());
+    private FindStarshipImpl() {
+    }
+
+    public Spaceship findAllSpaceshipsByCriteria(SpaceshipCriteria criteria) {            //used Optional for find
+        List<Spaceship> spaceships = new ArrayList<>(criteria.getSpaceships());
         Collections.shuffle(spaceships);
         Spaceship spaceship = spaceships.stream()
-                .filter (f -> f.getFlightDistance() > criteria.byDistance())
-                .filter (f -> f.getisReadyForNextMissions() == criteria.byIsReady())
+                .filter(f -> f.getFlightDistance() > criteria.byDistance())
+                .filter(f -> f.getisReadyForNextMissions() == criteria.byIsReady())
                 .limit(1)
                 .findAny().get();
-                //.findFirst().get();
-        if (spaceship==null) System.out.println(YELLOW+"NOT FREE SPACESHIP FOR ROUTE#"+RST);
+        if (spaceship == null) System.out.println(YELLOW + "NOT FREE SPACESHIP FOR ROUTE#" + RST);
         return spaceship;
     }
 

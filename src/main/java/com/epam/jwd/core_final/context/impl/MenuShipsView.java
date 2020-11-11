@@ -4,7 +4,7 @@ import com.epam.jwd.core_final.factory.impl.SpaceshipCrudImpl;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class NassaMenuShipsView extends NassaMenu{
+public class MenuShipsView extends NassaMenu{
     public static final String IDSHIP = "\nSELECT AND TYPE ID SPACESHIP FOR DETAIL VIEW, OR " + RED + "0" + RST + " FOR RETURN TO MAIN MENU";
 
     static void menuViewSpaceships() {
@@ -16,7 +16,7 @@ public class NassaMenuShipsView extends NassaMenu{
                 System.out.println(IDSHIP);
                 id = scanner.nextLong();
                 if (id == 0L) return;
-                NassaMenuShipsViewDetail.menuShipsDetail(id);
+                MenuShipsViewDetail.menuShipsDetail(id);
                 }
             catch (InputMismatchException e) {
                 System.out.println(BADINPUT);

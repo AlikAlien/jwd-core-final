@@ -1,7 +1,6 @@
 package com.epam.jwd.core_final.factory.impl;
 
 import com.epam.jwd.core_final.domain.AbstractBaseEntity;
-import com.epam.jwd.core_final.domain.Route;
 import com.epam.jwd.core_final.factory.EntityType;
 
 public class EntityFactoryImpl {
@@ -11,7 +10,7 @@ public class EntityFactoryImpl {
     }
 
     public AbstractBaseEntity create(AbstractBaseEntity obj, EntityType type) {
-        AbstractBaseEntity entity = null;
+        AbstractBaseEntity entity;
         switch (type) {
             case MISSION:
                 entity = MissionCrudImpl.MISSION_FACTORY.create(obj);

@@ -5,6 +5,5 @@ import com.epam.jwd.core_final.domain.Route;
 
 public interface RouteServise {
 
-
-    Route findAllRouteByCriteria (Criteria<? extends Route> criteria);
+    Route findAllRouteByCriteria(Criteria<? extends Route> criteria);
 }

@@ -33,7 +33,7 @@ public class CrewMember extends AbstractBaseEntity {
     }
 
     public void setRank(int i) {
-        this.rank = Rank.getRankById(i);;
+        this.rank = Rank.getRankById(i);
     }
 
     public boolean isReadyForNextMissions() {

@@ -1,25 +1,27 @@
 package com.epam.jwd.core_final.criteria;
+
 import com.epam.jwd.core_final.domain.Spaceship;
+
 import java.util.Collection;
 
 /**
  * Should be a builder for {@link Spaceship} fields
  */
-public class SpaceshipCriteria extends Criteria <Spaceship> {
-    private Collection <Spaceship> spaceships;
+public class SpaceshipCriteria extends Criteria<Spaceship> {
+    private Collection<Spaceship> spaceships;
     private Long flightDistance;
     private boolean isReadyForNextMissions;
 
     public static class Builder {
-        private Collection <Spaceship> spaceships;
+        private Collection<Spaceship> spaceships;
         private Long flightDistance = 0L;
         private boolean isReadyForNextMissions = true;
 
-        public Builder ( Collection <Spaceship> spaceships) {
+        public Builder(Collection<Spaceship> spaceships) {
             this.spaceships = spaceships;
         }
 
-        public Builder spaceships (Collection <Spaceship> arg){
+        public Builder spaceships(Collection<Spaceship> arg) {
             spaceships = arg;
             return this;
         }
@@ -39,13 +41,13 @@ public class SpaceshipCriteria extends Criteria <Spaceship> {
         }
     }
 
-    private SpaceshipCriteria (Builder builder) {
+    private SpaceshipCriteria(Builder builder) {
         spaceships = builder.spaceships;
         flightDistance = builder.flightDistance;
         isReadyForNextMissions = builder.isReadyForNextMissions;
     }
 
-    public Collection <Spaceship> getSpaceships() {
+    public Collection<Spaceship> getSpaceships() {
         return spaceships;
     }
 
@@ -53,7 +55,7 @@ public class SpaceshipCriteria extends Criteria <Spaceship> {
         return flightDistance;
     }
 
-    public boolean byIsReady () {
+    public boolean byIsReady() {
         return isReadyForNextMissions;
     }
 }

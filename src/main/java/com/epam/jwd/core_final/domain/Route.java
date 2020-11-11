@@ -1,6 +1,6 @@
 package com.epam.jwd.core_final.domain;
 
-public class Route extends AbstractBaseEntity{
+public class Route extends AbstractBaseEntity {
     int idRoute;
     String name;
     long routeDistance;

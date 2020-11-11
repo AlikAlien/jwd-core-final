@@ -1,12 +1,11 @@
 package com.epam.jwd.core_final.context.impl;
 
 import com.epam.jwd.core_final.factory.impl.CrewMemberCrudImpl;
-import com.epam.jwd.core_final.factory.impl.SpaceshipCrudImpl;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class NassaMenuCrewView extends NassaMenu {
+public class MenuCrewView extends NassaMenu {
     public static final String IDCREW = "\nSELECT AND TYPE ID CREWMEMBER FOR DETAIL VIEW, OR " + RED + "0" + RST + " FOR RETURN TO MAIN MENU";
 
     static void menuViewCrew() {
@@ -18,7 +17,7 @@ public class NassaMenuCrewView extends NassaMenu {
                 System.out.println(IDCREW);
                 id = scanner.nextLong();
                 if (id == 0L) return;
-                NassaMenuCrewViewDetail.menuCrewDetail(id);
+                MenuCrewViewDetail.menuCrewDetail(id);
             } catch (
                     InputMismatchException e) {
                 System.out.println(BADINPUT);

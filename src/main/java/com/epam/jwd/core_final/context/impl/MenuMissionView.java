@@ -4,8 +4,8 @@ import com.epam.jwd.core_final.domain.*;
 import com.epam.jwd.core_final.factory.impl.MissionCrudImpl;
 import java.util.*;
 
-public class NassaMenuMissionView extends NassaMenu {
-    public static final String MISSIONNENU = "\nSELECT AND TYPE ID MISSION FOR DETAIL VIEW, (" + RED + "S" + RST + ")AVE FOR SAVE ALL MISSIONS, OR " + RED + "0" + RST + " FOR RETURN TO MAIN MENU";
+public class MenuMissionView extends NassaMenu {
+    public static final String MISSIONNENU = "\nSELECT AND TYPE ID MISSION FOR DETAIL VIEW AND UPDATE, (" + RED + "S" + RST + ")AVE FOR SAVE ALL MISSIONS, OR " + RED + "0" + RST + " FOR RETURN TO MAIN MENU";
     static void menuView() {
         Long id = -1L;
 
@@ -22,7 +22,7 @@ public class NassaMenuMissionView extends NassaMenu {
                     MissionCrudImpl.MISSION_FACTORY.checkExist(id);
                     FlightMission flightMission = MissionCrudImpl.MISSION_FACTORY.getMission(finalId);
                     MissionCrudImpl.MISSION_FACTORY.printDetailItem(flightMission);
-                    NassaMenuMissionUpdate.menuMissionUpdate(flightMission, finalId);  //MENU FOR UPDATE
+                    MenuMissionUpdate.menuMissionUpdate(flightMission, finalId);  //MENU FOR UPDATE
 
                 } catch (NoSuchElementException | NumberFormatException e) {
                     System.out.println(BADID);

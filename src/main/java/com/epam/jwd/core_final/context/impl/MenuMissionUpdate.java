@@ -7,7 +7,7 @@ import com.epam.jwd.core_final.factory.impl.MissionCrudImpl;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class NassaMenuMissionUpdate extends NassaMenu {
+public class MenuMissionUpdate extends NassaMenu {
 
     public static final String MISSIONUDP = "\nFOR STATUS UPDATE THIS MISSIONS SELECT AND TYPE NEXT OPTION: (" + RED + "C" + RST + ")ANCEL, (" + RED + "F" + RST + ")AIL, (" + RED + "D" + RST + ")ONE, OR TYPE \"0\" FOR EXIT PREVIOUS MENU ";
 

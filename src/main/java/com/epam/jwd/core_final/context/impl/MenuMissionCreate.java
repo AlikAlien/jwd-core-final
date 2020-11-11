@@ -1,6 +1,5 @@
 package com.epam.jwd.core_final.context.impl;
 
-import com.epam.jwd.core_final.domain.AbstractBaseEntity;
 import com.epam.jwd.core_final.domain.FlightMission;
 import com.epam.jwd.core_final.domain.Route;
 import com.epam.jwd.core_final.factory.EntityType;
@@ -12,7 +11,7 @@ import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class NassaMenuMissionCreate extends NassaMenu {
+public class MenuMissionCreate extends NassaMenu {
     static void nenuCreate(int option) {
         int o = option;
         System.out.println("\n");
@@ -24,7 +23,7 @@ public class NassaMenuMissionCreate extends NassaMenu {
         Scanner scanner = new Scanner(System.in);
         while (id != 0) {
             try {
-                System.out.println("\nSELECT AND TYPE ID ROUTE, OR PRESS \"0\" FOR MAIN MENU");
+                System.out.println("\nSELECT AND TYPE ID ROUTE FOR CREATE MISSION, OR PRESS \"0\" FOR MAIN MENU");
                 id = scanner.nextLong();
                 if (id == 0) return;
                 Long finalId = id;

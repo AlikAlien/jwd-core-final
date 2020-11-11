@@ -10,7 +10,7 @@ public enum Role implements BaseEntity {
 
     private final Long id;
 
-    Role (Long id) {
+    Role(Long id) {
         this.id = id;
     }
 
@@ -30,20 +30,22 @@ public enum Role implements BaseEntity {
 
     public static String getName(Long id) {
         String roleName = null;
-        if (id==1L) roleName = "SPECIALIST";
-        if (id==2L) roleName = "ENGINEER";
-        if (id==3L) roleName = "PILOT";
-        if (id==4L) roleName = "COMMANDER";
+        if (id == 1L) roleName = "SPECIALIST";
+        if (id == 2L) roleName = "ENGINEER";
+        if (id == 3L) roleName = "PILOT";
+        if (id == 4L) roleName = "COMMANDER";
         if (roleName == null) System.out.println("incorrect iD");
         return roleName;
     }
+
     /**
      * todo via java.lang.enum methods!
+     *
      * @throws UnknownEntityException if such id does not exist
      */
 
-    public static Role getRoleById (int id) {
-        Role role= null;
+    public static Role getRoleById(int id) {
+        Role role = null;
         switch (id) {
             case 1:
                 role = Role.MISSION_SPECIALIST;
@@ -52,13 +54,34 @@ public enum Role implements BaseEntity {
                 role = Role.FLIGHT_ENGINEER;
                 break;
             case 3:
-                role =  Role.PILOT;
+                role = Role.PILOT;
                 break;
             case 4:
                 role = Role.COMMANDER;
                 break;
             default:
                 throw new RuntimeException("Unknown index:" + id);
+        }
+        return role;
+    }
+
+    public static Role getRoleByName(String string) {
+        Role role = null;
+        switch (string) {
+            case "MISSION_SPECIALIST":
+                role = Role.MISSION_SPECIALIST;
+                break;
+            case "FLIGHT_ENGINEER":
+                role = Role.FLIGHT_ENGINEER;
+                break;
+            case "PILOT":
+                role = Role.PILOT;
+                break;
+            case "COMMANDER":
+                role = Role.COMMANDER;
+                break;
+            default:
+                throw new RuntimeException("Unknown role:" + string);
         }
         return role;
     }

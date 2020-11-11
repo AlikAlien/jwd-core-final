@@ -11,17 +11,17 @@ import java.util.Map;
  */
 public class Spaceship extends AbstractBaseEntity {
     //todo
-    public Map <Role, Short> crew ;
+    public Map<Role, Short> crew;
     Long flightDistance;
     List<Long> iDMission = new ArrayList<>();
     boolean isReadyForNextMissions = true;
     boolean hasFailedMissions = false;
 
-    public Map  < Role, Short>  getCrew() {
+    public Map<Role, Short> getCrew() {
         return crew;
     }
 
-    public void setCrew (Map <Role, Short> crew) {
+    public void setCrew(Map<Role, Short> crew) {
         this.crew = crew;
     }
 
@@ -57,16 +57,17 @@ public class Spaceship extends AbstractBaseEntity {
         this.iDMission.add(id);
     }
 
-    public String getIsBusy(){
+    public String getIsBusy() {
         String isBusy;
         if (isReadyForNextMissions) isBusy = "FREE";
-        else isBusy ="BUSY";
+        else isBusy = "BUSY";
         return isBusy;
     }
-    public String getIsHasFailed(){
+
+    public String getIsHasFailed() {
         String status;
         if (hasFailedMissions) status = "YES,HAS FAILED";
-        else status ="NO,ONLY SUCCESSFUL";
+        else status = "NO,ONLY SUCCESSFUL";
         return status;
     }
 }

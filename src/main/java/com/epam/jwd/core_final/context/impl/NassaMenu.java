@@ -17,7 +17,7 @@ public class NassaMenu implements ApplicationMenu {
     public static final String YELLOW = "\u001B[33m";
     public static final String BADINPUT = RED + "BAD INPUT. TRY AGAIN.." + RST;
     public static final String BADOPTION = YELLOW + "BAD OPTIONS, PLEASE TRY AGAIN.." + RST;
-    public static final String MAINNENU = "PLEASE SELECT OPTION:\n1.VIEW MISSIONS\n2.CREATE MISSION\n3.VIEW SPACESHIPS\n4.VIEW CREW\n5.EXIT\n";
+    public static final String MAINNENU = "PLEASE SELECT OPTION:\n1.VIEW AND UPDATE MISSIONS\n2.CREATE MISSION\n3.VIEW SPACESHIPS\n4.VIEW CREW\n5.EXIT\n";
     public static final String EXITNENU = GREEN + "EXIT.." + RST;
     public static final String RETURN = "\nSELECT " + RED + "0" + RST + " FOR RETURN TO MAIN MENU";
     public static final String BADID = YELLOW + "BAD ID, PLEASE TRY AGAIN.." + RST;
@@ -47,16 +47,16 @@ public class NassaMenu implements ApplicationMenu {
         int o = option;
         switch (o) {
             case 1: //VIEW MISSION
-                NassaMenuMissionView.menuView();
+                MenuMissionView.menuView();
                 break;
             case 2: //CREATE MISSION
-                NassaMenuMissionCreate.nenuCreate(option);
+                MenuMissionCreate.nenuCreate(option);
                 break;
             case 3: //VIEW SPACESHIPS
-                NassaMenuShipsView.menuViewSpaceships();
+                MenuShipsView.menuViewSpaceships();
                 break;
             case 4: //VIEW CREW MEMBERS
-                NassaMenuCrewView.menuViewCrew();
+                MenuCrewView.menuViewCrew();
                 break;
             case 5: //EXIT
                 UpdateTaskCompleted.UPDATER.cancelUpd();
@@ -67,7 +67,7 @@ public class NassaMenu implements ApplicationMenu {
                 System.exit(0);
                 break;
             default:
-                System.out.println(YELLOW + "BAD OPTIONS, PLEASE TRY AGAIN.." + RST);
+                System.out.println(BADOPTION);
                 break;
         }
         return 0;

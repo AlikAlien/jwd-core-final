@@ -8,16 +8,17 @@ import java.util.Optional;
 
 public class FindRouteImpl {
     public static final FindRouteImpl FIND_ROUTE = new FindRouteImpl();
-    private FindRouteImpl(){}
 
-    public Route findRouteByCriteria (RouteCriteria criteria){            //used Optional for criteria by Figure
-        Route route = NassaContext.NASSA_CONTEXT.getRoutes().stream()
-            .filter(f -> f.getIdRoute() == criteria.byId())
-            .findFirst().get();
-    return route;
+    private FindRouteImpl() {
     }
 
-    public Optional findExistRouteByCriteria (RouteCriteria criteria){
+    public Route findRouteByCriteria(RouteCriteria criteria) {            //used Optional for criteria by Figure
+        return NassaContext.NASSA_CONTEXT.getRoutes().stream()
+                .filter(f -> f.getIdRoute() == criteria.byId())
+                .findFirst().get();
+    }
+
+    public Optional findExistRouteByCriteria(RouteCriteria criteria) {
         Optional route = Optional.ofNullable(NassaContext.NASSA_CONTEXT.getRoutes().stream()
                 .filter(f -> f.getIdRoute() == criteria.byId())
                 .findFirst().get());
