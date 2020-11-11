@@ -5,7 +5,7 @@ import com.epam.jwd.core_final.factory.impl.MissionCrudImpl;
 import java.util.*;
 
 public class NassaMenuMissionView extends NassaMenu {
-    public static final String MISSIONNENU = "\nSELECT AND TYPE ID MISSION FOR DETAIL VIEW, ("+RED+"S"+RST+")AVE FOR SAVE ALL MISSIONS, OR "+RED+"0"+RST+" FOR RETURN TO MAIN MENU";
+    public static final String MISSIONNENU = "\nSELECT AND TYPE ID MISSION FOR DETAIL VIEW, (" + RED + "S" + RST + ")AVE FOR SAVE ALL MISSIONS, OR " + RED + "0" + RST + " FOR RETURN TO MAIN MENU";
     static void menuView() {
         Long id = -1L;
 

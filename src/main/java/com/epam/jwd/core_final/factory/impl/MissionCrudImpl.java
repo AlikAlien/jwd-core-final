@@ -3,13 +3,14 @@ import com.epam.jwd.core_final.context.impl.NassaContext;
 import com.epam.jwd.core_final.criteria.impl.FlightMissionCriteriaBuilder;
 import com.epam.jwd.core_final.domain.*;
 import com.epam.jwd.core_final.factory.EntityFactory;
+import com.epam.jwd.core_final.factory.EntityType;
 import com.epam.jwd.core_final.service.impl.FindMissionImpl;
 
 import java.util.*;
 
 public class MissionCrudImpl implements EntityFactory {
     public static final MissionCrudImpl MISSION_FACTORY = new MissionCrudImpl();
-    private MissionCrudImpl() {}
+    MissionCrudImpl() {}
     Long id = 0L;
     private Collection <FlightMission> flightMissions = new ArrayList<>();
     public float capacityCrew = ApplicationProperties.APP_PROPERTIES.getCapacityCrew();
@@ -17,8 +18,8 @@ public class MissionCrudImpl implements EntityFactory {
     public FlightMission create (AbstractBaseEntity obj) throws NullPointerException{
         Route route = null;
         if (obj instanceof Route) route = (Route) obj;
-        Spaceship spaceship = SpaceshipCrudImpl.SPACESHIP_FACTORY.create(route);
-        List <CrewMember> members = CrewMemberCrudImpl.CREW_FACTORY.create(spaceship.getCrew());
+        Spaceship spaceship = (Spaceship) EntityFactoryImpl.FACTORY.create(route, EntityType.SPACESHIP);
+        List <CrewMember> members = CrewMemberCrudImpl.CREW_FACTORY.create(spaceship);
 
         FlightMission flightMission = new FlightMission();
         flightMission.setId (++id);
@@ -65,7 +66,9 @@ public class MissionCrudImpl implements EntityFactory {
         System.out.println("-------------------------------------------------------------------------------------------------- ");
     }
 
-    public void printDetailItem(FlightMission flightMission){
+    public void printDetailItem(AbstractBaseEntity obj){
+        FlightMission flightMission= null;
+        if (obj instanceof FlightMission) flightMission = (FlightMission) obj;
         System.out.print("MISSION ID#"+ id +"  NAME:" +flightMission.getMissionsName()+ "  DISTANCE:"+ flightMission.getDistance() );
         System.out.print("  STARSHIP:"+flightMission.getAssignedSpaceShift().getName()+
                 "  START_DATE:" + NassaContext.NASSA_CONTEXT.dateFormat.format(flightMission.getStartDateTime() ) +

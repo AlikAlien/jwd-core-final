@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 public interface Application {
 
     static ApplicationMenu start() throws IOException {
-        final Supplier <ApplicationContext> applicationContextSupplier = null; // todo
+        final Supplier<ApplicationContext> applicationContextSupplier = null; // todo
         LoggerImpl.LOGGER.info("APPLICATION START..");
         NassaContext.NASSA_CONTEXT.init();
         NassaMenu applicationMenu = new NassaMenu();

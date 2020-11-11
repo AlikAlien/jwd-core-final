@@ -3,11 +3,12 @@ package com.epam.jwd.core_final.context.impl;
 import com.epam.jwd.core_final.domain.CrewMember;
 import com.epam.jwd.core_final.factory.impl.CrewMemberCrudImpl;
 import com.epam.jwd.core_final.factory.impl.SpaceshipCrudImpl;
+
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class NassaMenuCrewViewDetail extends NassaMenu{
+public class NassaMenuCrewViewDetail extends NassaMenu {
     static void menuCrewDetail(Long id) {
         Scanner scanner = new Scanner(System.in);
         try {
@@ -17,7 +18,7 @@ public class NassaMenuCrewViewDetail extends NassaMenu{
                     .findFirst().get());
             CrewMemberCrudImpl.CREW_FACTORY.printDetailItem(id);
         } catch (NoSuchElementException e) {
-            System.out.println (BADID);
+            System.out.println(BADID);
             scanner.nextLine();
             return;
         }
