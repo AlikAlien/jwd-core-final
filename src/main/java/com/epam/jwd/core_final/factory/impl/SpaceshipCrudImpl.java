@@ -1,6 +1,7 @@
 package com.epam.jwd.core_final.factory.impl;
 
 import com.epam.jwd.core_final.context.impl.NassaContext;
+import com.epam.jwd.core_final.criteria.impl.CrewMemberCriteriaBuilder;
 import com.epam.jwd.core_final.criteria.impl.SpaceshipCriteriaBuilder;
 import com.epam.jwd.core_final.domain.AbstractBaseEntity;
 import com.epam.jwd.core_final.domain.Route;
@@ -8,7 +9,6 @@ import com.epam.jwd.core_final.domain.Spaceship;
 import com.epam.jwd.core_final.factory.EntityFactory;
 import com.epam.jwd.core_final.service.impl.FindStarshipImpl;
 
-import java.util.Objects;
 import java.util.Optional;
 
 import static com.epam.jwd.core_final.context.impl.NassaMenu.RST;
@@ -17,8 +17,10 @@ import static com.epam.jwd.core_final.context.impl.NassaMenu.YELLOW;
 public class SpaceshipCrudImpl implements EntityFactory{
     public static final SpaceshipCrudImpl SPACESHIP_FACTORY = new SpaceshipCrudImpl();
     private SpaceshipCrudImpl() {}
-    final static String START_DELIMITER = "--------------------------------------- SPACESHIPS ---------------------------------------------- ";
-    final static String END_DELIMITER   = "------------------------------------------------------------------------------------------------- ";
+    final static String SHIP_DETAIL = " %1$-3d   %2$-16s  %3$-8s  %4$-6s     %5$-3d       %6$s\n";
+    final static String MISSION_DETAIL = "MISSION %1$-16s \n";
+    final static String DELIMITER       = "---------------------------------------------------------------";
+    final static String FIELDS          = " ID#    STARSHIP         RANGE    STATUS  MISSIONS  HAS FAILED?";
 
     public Spaceship create (AbstractBaseEntity obj) {
         Route route = null;
@@ -31,30 +33,20 @@ public class SpaceshipCrudImpl implements EntityFactory{
     }
 
     public void printListAll() {
-        System.out.println(START_DELIMITER);
+        System.out.println(DELIMITER+"\n"+FIELDS+"\n"+DELIMITER);
         NassaContext.NASSA_CONTEXT.getSpaceships()
-                .forEach(x -> System.out.printf("ID#%1$-3d STARSHIP: %2$-16s RANGE:%3$-8s STATUS:%4$-6s FAILED_MISSION: %5$s\n",
-                        x.getId(),x.getName(),x.getFlightDistance(), x.getIsBusy(), x.getIsHasFailed()) );
-
-        System.out.println(END_DELIMITER);
+                .forEach(x -> System.out.printf(SHIP_DETAIL,x.getId(),x.getName(),x.getFlightDistance(), x.getIsBusy(), x.getiDMission().size(),x.getIsHasFailed()) );
+        System.out.println(DELIMITER);
     }
 
     public void printDetailItem(Long id) {
-        System.out.println(START_DELIMITER);
-        Spaceship spaceship = NassaContext.NASSA_CONTEXT.getSpaceships().stream()
-                .filter(f-> Objects.equals(f.getId(), id))
-                .peek(x -> System.out.println("ID#" + x.getId() +" STARSHIP NAME:" + x.getName() + "  RANGE:"
-                        + x.getFlightDistance() + "  STATUS:" + x.getIsBusy()+ "  FAILED_MISSION: "+x.getIsHasFailed()))
-                .findFirst().get();
+        System.out.println(DELIMITER+"\n"+FIELDS+"\n"+DELIMITER);
+        Spaceship spaceship = FindStarshipImpl.FIND_STARSHIP.findShipById(CrewMemberCriteriaBuilder.CREW_CRITERIA_BUILDER.createById(id));
+        System.out.printf(SHIP_DETAIL,spaceship.getId(), spaceship.getName(), spaceship.getFlightDistance(), spaceship.getIsBusy(), spaceship.getiDMission().size(),spaceship.getIsHasFailed());
 
-        spaceship.getiDMission().stream().
-                forEach(f-> System.out.println("MISSIONS ID#"+f+" "+ MissionCrudImpl.MISSION_FACTORY.getMissionName(f)));
-        System.out.println(END_DELIMITER);
-    }
-    public Optional checkExist (Long id) {
-        Optional spaceship = Optional.ofNullable(NassaContext.NASSA_CONTEXT.getSpaceships().stream()
-                .filter(f -> f.getId() == id)
-                .findFirst().get());
-        return  spaceship;
+        spaceship.getiDMission().
+                forEach(f -> System.out.printf(MISSION_DETAIL, MissionCrudImpl.MISSION_FACTORY.getPrintedMissionName(f)));
+        System.out.println(DELIMITER);
+
     }
 }

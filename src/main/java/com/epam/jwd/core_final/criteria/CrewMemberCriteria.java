@@ -14,6 +14,7 @@ public class CrewMemberCriteria extends Criteria<CrewMember> {
     private Role role;
     private Rank rank;
     private String name;
+    private Long id;
     private int num;
     private boolean isReady;
 
@@ -22,7 +23,8 @@ public class CrewMemberCriteria extends Criteria<CrewMember> {
         private Role role;
         private Rank rank;
         private String name;
-        private int id;
+        private Long id;
+        private int num;
         private boolean isReady = true;
 
         public Builder(Collection<CrewMember> crewMembers) {
@@ -49,8 +51,12 @@ public class CrewMemberCriteria extends Criteria<CrewMember> {
             return this;
         }
 
-        public CrewMemberCriteria.Builder byId(int arg) {
+        public CrewMemberCriteria.Builder byId(Long arg) {
             id = arg;
+            return this;
+        }
+        public CrewMemberCriteria.Builder byNum(int arg) {
+            num = arg;
             return this;
         }
 
@@ -66,7 +72,10 @@ public class CrewMemberCriteria extends Criteria<CrewMember> {
 
     private CrewMemberCriteria(CrewMemberCriteria.Builder builder) {
         crewMembers = builder.crewMembers;
-        num = builder.id;
+        name = builder.name;
+        id = builder.id;
+        num = builder.num;
+        rank = builder.rank;
         role = builder.role;
         isReady = builder.isReady;
     }
@@ -87,7 +96,11 @@ public class CrewMemberCriteria extends Criteria<CrewMember> {
         return name;
     }
 
-    public int byId() {
+    public Long byId() {
+        return id;
+    }
+
+    public int byNum() {
         return num;
     }
 

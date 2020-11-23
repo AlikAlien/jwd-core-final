@@ -21,14 +21,12 @@ public class NassaContext implements ApplicationContext {
 
     public NassaContext() {
     }
-
     // no getters/setters for them //temp
     private Collection<CrewMember> crewMembers = new ArrayList<>();
     private Collection<Spaceship> spaceships = new ArrayList<>();
     private Collection<Route> routes = new ArrayList<>();
     public DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(APP_PROPERTIES.getDateTimeFormat());
     public DateTimeFormatter dateFileFormat = DateTimeFormatter.ofPattern(APP_PROPERTIES.getDateTimeFileFormat());
-
 
     @Override
     public void init() throws IOException {

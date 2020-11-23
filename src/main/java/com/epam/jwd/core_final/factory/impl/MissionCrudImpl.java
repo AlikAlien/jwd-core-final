@@ -1,11 +1,9 @@
 package com.epam.jwd.core_final.factory.impl;
 
 import com.epam.jwd.core_final.context.impl.NassaContext;
-import com.epam.jwd.core_final.criteria.impl.FlightMissionCriteriaBuilder;
 import com.epam.jwd.core_final.domain.*;
 import com.epam.jwd.core_final.factory.EntityFactory;
 import com.epam.jwd.core_final.factory.EntityType;
-import com.epam.jwd.core_final.service.impl.FindMissionImpl;
 
 import java.util.*;
 
@@ -14,9 +12,10 @@ public class MissionCrudImpl implements EntityFactory {
 
     MissionCrudImpl() {
     }
-    final static String START_DELIMITER = "--------------------------------------- MISSIONS -------------------------------------------------------------------------------- ";
-    final static String END_DELIMITER   = "--------------------------------------------------------------------------------------------------------------------------------- ";
-
+    final static String DELIMITER       = "--------------------------------------------------------------------------------------------------------------";
+    final static String FIELDS          = "ID#  MISSION        DISTANCE   STARSHIP       RANGE        START_DATE             END_DATE            STATUS";
+    final static String DETAIL_MISSION  = "%1$-3d  %2$-14s %3$-8d  %4$-13s  %5$-7d   %6$s   %7$s   %8$s";
+    final static String NAME_MISSION    = "ID#%1$-3d %2$-10s DISTANCE:%3$-7d STATUS:%4$-10s";
     Long id = 0L;
     private final Collection<FlightMission> flightMissions = new ArrayList<>();
     public float capacityCrew = ApplicationProperties.APP_PROPERTIES.getCapacityCrew();
@@ -42,7 +41,7 @@ public class MissionCrudImpl implements EntityFactory {
         members.forEach(f -> f.setReadyForNextMissions(false));
         members.forEach(f -> f.addiDMission(id));
         flightMissions.add(flightMission);
-        System.out.print("MISSION CREATED  ");
+        System.out.print("MISSION CREATED\n");
         return flightMission;
     }
 
@@ -61,33 +60,34 @@ public class MissionCrudImpl implements EntityFactory {
     }
 
     public void printListAll() {
-        System.out.println(START_DELIMITER);
+        System.out.println(DELIMITER+"\n"+FIELDS+"\n"+DELIMITER);
         MissionCrudImpl.MISSION_FACTORY.getFlightMissions()
-                .forEach(x -> System.out.printf("ID#%1$-3d  MISSION: %2$-10s DISTANCE: %3$-7d STARSHIP: %4$-13s " +
-                                "RANGE: %5$-7d START_DATE:%6$s  END_DATE:%7$s STATUS: %8$s\n"
+                .forEach(x ->
+                        System.out.printf(DETAIL_MISSION+"\n"
                         , x.getId(), x.getMissionsName(), x.getDistance(),
                         x.getAssignedSpaceShift().getName(), x.getAssignedSpaceShift().getFlightDistance(),
                         NassaContext.NASSA_CONTEXT.dateFormat.format(x.getStartDateTime()),
                         NassaContext.NASSA_CONTEXT.dateFormat.format(x.getEndDateTime()), x.getMissionResult()));
-        System.out.println(END_DELIMITER);
+        System.out.println(DELIMITER);
     }
 
     public void printDetailItem(AbstractBaseEntity obj) {
-        FlightMission flightMission = null;
-        if (obj instanceof FlightMission) flightMission = (FlightMission) obj;
-        assert flightMission != null;
-        System.out.print("MISSION ID#" + id + "  NAME:" + flightMission.getMissionsName() + "  DISTANCE:" + flightMission.getDistance());
-        System.out.print("  STARSHIP:" + flightMission.getAssignedSpaceShift().getName() +
-                "  START_DATE:" + NassaContext.NASSA_CONTEXT.dateFormat.format(flightMission.getStartDateTime()) +
-                "  END_DATE:" + NassaContext.NASSA_CONTEXT.dateFormat.format(flightMission.getEndDateTime()) +
-                "  RANGE: " + flightMission.getAssignedSpaceShift().getFlightDistance() + "  STATUS:" + flightMission.getMissionResult());
-
-        Map<Role, Short> roleMap = flightMission.getAssignedSpaceShift().getCrew();
+        FlightMission flight = null;
+        if (obj instanceof FlightMission) flight = (FlightMission) obj;
+        assert flight != null;
+        System.out.println(DELIMITER+"\n"+FIELDS+"\n"+DELIMITER);
+        System.out.printf(DETAIL_MISSION
+                ,flight.getId(), flight.getMissionsName(), flight.getDistance(),
+                flight.getAssignedSpaceShift().getName(), flight.getAssignedSpaceShift().getFlightDistance(),
+                NassaContext.NASSA_CONTEXT.dateFormat.format(flight.getStartDateTime()),
+                NassaContext.NASSA_CONTEXT.dateFormat.format(flight.getEndDateTime()), flight.getMissionResult());
+        System.out.print("\n"+DELIMITER);
+        Map<Role, Short> roleMap = flight.getAssignedSpaceShift().getCrew();
         for (Role role : roleMap.keySet()) {
-            System.out.printf("\n%1$-3d %2$10s (s) ", roleMap.get(role), role.getName());
-            flightMission.getAssignedCrew().stream()
+            System.out.printf("\n%1$-3d %2$10s (s):", (int) Math.ceil(roleMap.get(role)*MissionCrudImpl.MISSION_FACTORY.capacityCrew), role.getName());
+            flight.getAssignedCrew().stream()
                     .filter(f -> f.getRole().equals(role))
-                    .forEach(f -> System.out.printf(" %18s |", f.getName()));
+                    .forEach(f -> System.out.printf(" %18s", f.getName()));
         }
     }
 
@@ -97,15 +97,10 @@ public class MissionCrudImpl implements EntityFactory {
                 .findFirst().get();
     }
 
-    public String getMissionName(Long id) {
+    public String getPrintedMissionName(Long id) {
         FlightMission flightMission = flightMissions.stream()
-                .filter(f -> f.getId() == id)
+                .filter(f -> f.getId().equals(id))
                 .findFirst().get();
-        return flightMission.getMissionsName() + "  RANGE:" + flightMission.getDistance() + "  RESULT:" + flightMission.getMissionResult();
-    }
-
-    public Optional checkExist(Long id) {
-        Optional mission = FindMissionImpl.FIND_MISSION.findMissionByCriteria(FlightMissionCriteriaBuilder.MISSION_CRITERIA.create(id));
-        return mission;
+        return String.format(NAME_MISSION, id, flightMission.getMissionsName(),flightMission.getDistance(),flightMission.getMissionResult());
     }
 }

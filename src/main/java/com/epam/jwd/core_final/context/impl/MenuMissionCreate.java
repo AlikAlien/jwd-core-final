@@ -12,18 +12,24 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class MenuMissionCreate extends NassaMenu {
+    public static final String OPTION = "\nSELECT AND TYPE ID ROUTE FOR CREATE MISSION, OR PRESS \"0\" FOR MAIN MENU\n";
+    public static final String NOSHIP = "WARNING: NO SHIPS AVAILABLE FOR THIS ROUTE!";
+    public static final String DETAILSHIP = "ID#    ROUTE         DISTANCE \n";
+    public static final String DELIMETER = "------------------------------\n";
+
+
     static void nenuCreate(int option) {
         int o = option;
-        System.out.println("\n");
+        System.out.print(DELIMETER+DETAILSHIP+DELIMETER);
         NassaContext.NASSA_CONTEXT.getRoutes().stream()
-                .forEach(x -> System.out.printf("ID:%1$-3d ROUTE: %2$-12s DISTANCE: %3$d\n",
+                .forEach(x -> System.out.printf("%1$-3d    %2$-12s  %3$d\n",
                         x.getIdRoute(), x.getName(), x.getRouteDistance()));
-
+        System.out.print(DELIMETER);
         Long id = -1L;
         Scanner scanner = new Scanner(System.in);
         while (id != 0) {
             try {
-                System.out.println("\nSELECT AND TYPE ID ROUTE FOR CREATE MISSION, OR PRESS \"0\" FOR MAIN MENU");
+                System.out.print(OPTION);
                 id = scanner.nextLong();
                 if (id == 0) return;
                 Long finalId = id;
@@ -36,7 +42,7 @@ public class MenuMissionCreate extends NassaMenu {
                         FlightMission flightMission = (FlightMission) EntityFactoryImpl.FACTORY.create(route, EntityType.MISSION);
                         MissionCrudImpl.MISSION_FACTORY.printDetailItem(flightMission);
                     } catch (NoSuchElementException | NullPointerException e) {
-                        System.out.println(YELLOW + "WARNING: NO SHIPS AVAILABLE FOR THIS ROUTE!" + RST);
+                        System.out.println(YELLOW + NOSHIP + RST);
                     }
                 } catch (NoSuchElementException e) {
                     System.out.println(BADID);

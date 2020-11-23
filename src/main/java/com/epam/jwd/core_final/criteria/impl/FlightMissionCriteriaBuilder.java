@@ -9,9 +9,8 @@ public class FlightMissionCriteriaBuilder {
     private FlightMissionCriteriaBuilder() {}
 
     public FlightMissionCriteria create (Long id) {
-        FlightMissionCriteria flightMissionCriteria = new FlightMissionCriteria.Builder(MissionCrudImpl.MISSION_FACTORY.getFlightMissions())
+        return new FlightMissionCriteria.Builder(MissionCrudImpl.MISSION_FACTORY.getFlightMissions())
                 .byId(id)
                 .build();
-        return flightMissionCriteria;
     }
 }

@@ -8,9 +8,8 @@ public class RouteCriteriaBuilder {
     private RouteCriteriaBuilder () {}
 
     public RouteCriteria create (Long id) {
-        RouteCriteria routeCriteria = new RouteCriteria.Builder(NassaContext.NASSA_CONTEXT.getRoutes())
+        return new RouteCriteria.Builder(NassaContext.NASSA_CONTEXT.getRoutes())
                 .byId(id)
                 .build();
-        return routeCriteria;
     }
 }

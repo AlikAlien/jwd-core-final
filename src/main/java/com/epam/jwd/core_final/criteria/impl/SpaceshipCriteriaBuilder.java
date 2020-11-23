@@ -8,11 +8,14 @@ public class SpaceshipCriteriaBuilder {
     private SpaceshipCriteriaBuilder () {}
 
     public SpaceshipCriteria create (Long dist, boolean isReady) {
-        SpaceshipCriteria spaceshipCriteria = new SpaceshipCriteria.Builder(NassaContext.NASSA_CONTEXT.getSpaceships())
+        return new SpaceshipCriteria.Builder(NassaContext.NASSA_CONTEXT.getSpaceships())
                 .byDist(dist)
                 .byIsReady(isReady)
                 .build();
-
-        return spaceshipCriteria;
+    }
+    public SpaceshipCriteria createById (Long id) {
+        return new SpaceshipCriteria.Builder(NassaContext.NASSA_CONTEXT.getSpaceships())
+                .byId(id)
+                .build();
     }
 }

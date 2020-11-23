@@ -10,11 +10,13 @@ import java.util.Collection;
 public class SpaceshipCriteria extends Criteria<Spaceship> {
     private Collection<Spaceship> spaceships;
     private Long flightDistance;
+    private Long id;
     private boolean isReadyForNextMissions;
 
     public static class Builder {
         private Collection<Spaceship> spaceships;
         private Long flightDistance = 0L;
+        private Long id;
         private boolean isReadyForNextMissions = true;
 
         public Builder(Collection<Spaceship> spaceships) {
@@ -35,6 +37,11 @@ public class SpaceshipCriteria extends Criteria<Spaceship> {
             isReadyForNextMissions = arg;
             return this;
         }
+        public Builder byId(Long arg) {
+            id = arg;
+            return this;
+        }
+
 
         public SpaceshipCriteria build() {
             return new SpaceshipCriteria(this);
@@ -45,6 +52,7 @@ public class SpaceshipCriteria extends Criteria<Spaceship> {
         spaceships = builder.spaceships;
         flightDistance = builder.flightDistance;
         isReadyForNextMissions = builder.isReadyForNextMissions;
+        id = builder.id;
     }
 
     public Collection<Spaceship> getSpaceships() {

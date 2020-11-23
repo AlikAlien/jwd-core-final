@@ -1,15 +1,13 @@
 package com.epam.jwd.core_final.service.impl;
 
+import com.epam.jwd.core_final.context.impl.NassaContext;
 import com.epam.jwd.core_final.criteria.CrewMemberCriteria;
 import com.epam.jwd.core_final.criteria.Criteria;
 import com.epam.jwd.core_final.domain.CrewMember;
 import com.epam.jwd.core_final.factory.impl.MissionCrudImpl;
 import com.epam.jwd.core_final.service.CrewService;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class FindCrewImpl implements CrewService {
@@ -18,8 +16,8 @@ public class FindCrewImpl implements CrewService {
     private FindCrewImpl() {
     }
 
-    public List<CrewMember> findAllCrewMembersByCriteria(CrewMemberCriteria criteria) {            //used Optional for criteria
-        Long limitCapacity = (long) Math.ceil(criteria.byId() * MissionCrudImpl.MISSION_FACTORY.capacityCrew);
+    public List<CrewMember> findCrewByCriteria(CrewMemberCriteria criteria) {            //used Optional for criteria
+        Long limitCapacity = (long) Math.ceil(criteria.byNum() * MissionCrudImpl.MISSION_FACTORY.capacityCrew);
         List<CrewMember> crewMembers = new ArrayList<>(criteria.getCrewMembers());
         Collections.shuffle(crewMembers);
         List<CrewMember> crewMembersRnd = crewMembers.stream()
@@ -33,28 +31,28 @@ public class FindCrewImpl implements CrewService {
         return crewMembersRnd;
     }
 
-    public List<CrewMember> findAllCrewMembersByName(CrewMemberCriteria criteria) {
-        List<CrewMember> crewMembers = new ArrayList<>(criteria.getCrewMembers());
-            crewMembers.stream()
-                .filter(f -> f.getName().equals(criteria.byName()))
+    public List<CrewMember> findCrewByName(CrewMemberCriteria criteria) {
+        return criteria.getCrewMembers().stream()
+                .filter(f -> criteria.byName().equals("*")||f.getName().contains(criteria.byName()))
                 .collect(Collectors.toCollection(ArrayList::new));
-        return crewMembers;
     }
 
-    public List<CrewMember> findAllCrewMembersByRole(CrewMemberCriteria criteria) {
-        List<CrewMember> crewMembers = new ArrayList<>(criteria.getCrewMembers());
-        crewMembers.stream()
+    public List<CrewMember> findCrewByRole(CrewMemberCriteria criteria) {
+        return criteria.getCrewMembers().stream()
                 .filter(f -> f.getRole().equals(criteria.byRole()))
                 .collect(Collectors.toCollection(ArrayList::new));
-        return crewMembers;
     }
 
-    public List<CrewMember> findAllCrewMembersByRank(CrewMemberCriteria criteria) {
-        List<CrewMember> crewMembers = new ArrayList<>(criteria.getCrewMembers());
-        crewMembers.stream()
-                .filter(f -> f.getRank().equals(criteria.byRole()))
+    public List<CrewMember> findCrewByRank(CrewMemberCriteria criteria) {
+        return criteria.getCrewMembers().stream()
+                .filter(f -> f.getRank().equals(criteria.byRank()))
                 .collect(Collectors.toCollection(ArrayList::new));
-        return crewMembers;
+    }
+
+    public CrewMember findCrewById(CrewMemberCriteria criteria) {
+        return criteria.getCrewMembers().stream()
+                .filter(f -> Objects.equals(f.getId(), criteria.byId()))
+                .findFirst().get();
     }
 
     @Override

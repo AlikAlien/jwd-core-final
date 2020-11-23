@@ -45,7 +45,7 @@ public enum Role implements BaseEntity {
      */
 
     public static Role getRoleById(int id) {
-        Role role = null;
+        Role role;
         switch (id) {
             case 1:
                 role = Role.MISSION_SPECIALIST;
@@ -61,27 +61,6 @@ public enum Role implements BaseEntity {
                 break;
             default:
                 throw new RuntimeException("Unknown index:" + id);
-        }
-        return role;
-    }
-
-    public static Role getRoleByName(String string) {
-        Role role = null;
-        switch (string) {
-            case "MISSION_SPECIALIST":
-                role = Role.MISSION_SPECIALIST;
-                break;
-            case "FLIGHT_ENGINEER":
-                role = Role.FLIGHT_ENGINEER;
-                break;
-            case "PILOT":
-                role = Role.PILOT;
-                break;
-            case "COMMANDER":
-                role = Role.COMMANDER;
-                break;
-            default:
-                throw new RuntimeException("Unknown role:" + string);
         }
         return role;
     }

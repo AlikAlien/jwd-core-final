@@ -19,11 +19,9 @@ public class MenuMissionView extends NassaMenu {
                 if (opt.equals("S")) {JsonWriter.JSON_WRITER.nassaSave();return;}
                 try {
                     Long finalId = Long.valueOf(opt);
-                    MissionCrudImpl.MISSION_FACTORY.checkExist(id);
                     FlightMission flightMission = MissionCrudImpl.MISSION_FACTORY.getMission(finalId);
                     MissionCrudImpl.MISSION_FACTORY.printDetailItem(flightMission);
                     MenuMissionUpdate.menuMissionUpdate(flightMission, finalId);  //MENU FOR UPDATE
-
                 } catch (NoSuchElementException | NumberFormatException e) {
                     System.out.println(BADID);
                 }

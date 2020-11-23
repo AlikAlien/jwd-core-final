@@ -41,7 +41,7 @@ public class UpdateTaskRandFailed {
             }
         };
 
-        Long period = Long.valueOf(APP_PROPERTIES.getMissionsRefresh()) * 20; //PERIOD FOR RND FAILED in 20
+        Long period = APP_PROPERTIES.getMissionsRndFailRate(); //PERIOD FOR RND FAILED in 20
         timer = new Timer("UPDATE_MISSIONS_FAIL");
         timer.scheduleAtFixedRate(updater, 60000, period);
         LoggerImpl.LOGGER.info("START RND FAIL TASK..");

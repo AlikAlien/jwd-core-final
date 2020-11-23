@@ -28,12 +28,13 @@ public class ApplicationProperties {
     final String crewFileName = PropertyReaderUtil.READER_UTIL.loadProperties("crewFileName");
     final String missionsFileName = PropertyReaderUtil.READER_UTIL.loadProperties("missionsFileName");
     final String spaceshipsFileName = PropertyReaderUtil.READER_UTIL.loadProperties("spaceshipsFileName");
-    final String fileRefreshRate = PropertyReaderUtil.READER_UTIL.loadProperties("fileRefreshRate");
+    final Long fileRefreshRate = Long.parseLong(PropertyReaderUtil.READER_UTIL.loadProperties("fileRefreshRate"));
     final String dateTimeFormat = PropertyReaderUtil.READER_UTIL.loadProperties("dateTimeFormat");
     final String dateTimeFileFormat = PropertyReaderUtil.READER_UTIL.loadProperties("dateTimeFileFormat");
     final String routeFileName = PropertyReaderUtil.READER_UTIL.loadProperties("routeFileName");
-    final String missionsRefreshRate = PropertyReaderUtil.READER_UTIL.loadProperties("missionsRefreshRate");
+    final Long missionsRefreshRate = Long.parseLong(PropertyReaderUtil.READER_UTIL.loadProperties("missionsRefreshRate"));
     final float capacityCrew = Float.parseFloat(PropertyReaderUtil.READER_UTIL.loadProperties("capacityCrew"));
+    final Long missionsRndFailRate = Long.parseLong(PropertyReaderUtil.READER_UTIL.loadProperties("missionsRndFailRate"));
 
     public String getInputRootDir() {
         return inputRootDir;
@@ -55,7 +56,7 @@ public class ApplicationProperties {
         return spaceshipsFileName;
     }
 
-    public String getFileRefreshRate() {
+    public Long getFileRefreshRate() {
         return fileRefreshRate;
     }
 
@@ -67,7 +68,7 @@ public class ApplicationProperties {
         return routeFileName;
     }
 
-    public String getMissionsRefresh() {
+    public Long getMissionsRefresh() {
         return missionsRefreshRate;
     }
 
@@ -79,5 +80,7 @@ public class ApplicationProperties {
         return capacityCrew;
     }
 
-
+    public Long getMissionsRndFailRate() {
+        return missionsRndFailRate;
+    }
 }

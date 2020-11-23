@@ -1,14 +1,14 @@
 package com.epam.jwd.core_final.service.impl;
 
+import com.epam.jwd.core_final.context.impl.NassaContext;
+import com.epam.jwd.core_final.criteria.CrewMemberCriteria;
 import com.epam.jwd.core_final.criteria.Criteria;
 import com.epam.jwd.core_final.criteria.SpaceshipCriteria;
+import com.epam.jwd.core_final.domain.CrewMember;
 import com.epam.jwd.core_final.domain.Spaceship;
 import com.epam.jwd.core_final.service.SpaceshipService;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static com.epam.jwd.core_final.context.impl.NassaMenu.RST;
 import static com.epam.jwd.core_final.context.impl.NassaMenu.YELLOW;
@@ -23,12 +23,17 @@ public class FindStarshipImpl implements SpaceshipService {
         List<Spaceship> spaceships = new ArrayList<>(criteria.getSpaceships());
         Collections.shuffle(spaceships);
         Spaceship spaceship = spaceships.stream()
-                .filter(f -> f.getFlightDistance() > criteria.byDistance())
-                .filter(f -> f.getisReadyForNextMissions() == criteria.byIsReady())
-                .limit(1)
-                .findAny().get();
-        if (spaceship == null) System.out.println(YELLOW + "NOT FREE SPACESHIP FOR ROUTE#" + RST);
+                .filter(f -> (f.getFlightDistance() > criteria.byDistance()) && f.getisReadyForNextMissions() == criteria.byIsReady())
+                .min(Comparator.comparing(Spaceship::getFlightDistance)).get();     //min FlightDistance
+                //.limit(1).findAny().get();                                        //Random manner
+        if (spaceship == null) System.out.println(YELLOW + "from find -NOT FREE SPACESHIP FOR ROUTE#" + RST);
         return spaceship;
+    }
+
+    public Spaceship findShipById(CrewMemberCriteria criteria) {
+        return NassaContext.NASSA_CONTEXT.getSpaceships().stream()
+                .filter(f -> Objects.equals(f.getId(), criteria.byId()))
+                .findFirst().get();
     }
 
     @Override

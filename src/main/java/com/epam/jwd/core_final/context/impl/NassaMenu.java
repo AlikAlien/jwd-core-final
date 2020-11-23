@@ -15,12 +15,14 @@ public class NassaMenu implements ApplicationMenu {
     public static final String RED = "\u001B[31m";
     public static final String GREEN = "\u001B[32m";
     public static final String YELLOW = "\u001B[33m";
-    public static final String BADINPUT = RED + "BAD INPUT. TRY AGAIN.." + RST;
+
+    public static final String BADINPUT     = RED + "BAD INPUT. TRY AGAIN.." + RST;
+    public static final String BADID     = YELLOW + "BAD ID, PLEASE TRY AGAIN.." + RST;
     public static final String BADOPTION = YELLOW + "BAD OPTIONS, PLEASE TRY AGAIN.." + RST;
-    public static final String MAINNENU = "PLEASE SELECT OPTION:\n1.VIEW AND UPDATE MISSIONS\n2.CREATE MISSION\n3.VIEW SPACESHIPS\n4.VIEW CREW\n5.EXIT\n";
+    public static final String MAINNENU = GREEN+"PLEASE SELECT OPTION:\n1.VIEW AND UPDATE MISSIONS\n2.CREATE MISSION\n3.VIEW SPACESHIPS\n4.SEARCH AND VIEW CREW\n5.EXIT\n"+RST;
     public static final String EXITNENU = GREEN + "EXIT.." + RST;
-    public static final String RETURN = "\nSELECT " + RED + "0" + RST + " FOR RETURN TO MAIN MENU";
-    public static final String BADID = YELLOW + "BAD ID, PLEASE TRY AGAIN.." + RST;
+    public static final String RETURN = "\nSELECT " + GREEN + "0" + RST + " FOR RETURN TO MAIN MENU";
+
 
     @Override
     public ApplicationContext getApplicationContext() {
@@ -56,7 +58,7 @@ public class NassaMenu implements ApplicationMenu {
                 MenuShipsView.menuViewSpaceships();
                 break;
             case 4: //VIEW CREW MEMBERS
-                MenuCrewView.menuViewCrew();
+                MenuCrewSearchByCriteria.menuSearch();
                 break;
             case 5: //EXIT
                 UpdateTaskCompleted.UPDATER.cancelUpd();

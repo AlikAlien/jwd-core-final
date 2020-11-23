@@ -66,8 +66,8 @@ public class Spaceship extends AbstractBaseEntity {
 
     public String getIsHasFailed() {
         String status;
-        if (hasFailedMissions) status = "YES,HAS FAILED";
-        else status = "NO,ONLY SUCCESSFUL";
+        if (hasFailedMissions) status = "YES";
+        else status = "NO";
         return status;
     }
 }

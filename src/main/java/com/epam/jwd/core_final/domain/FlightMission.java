@@ -1,6 +1,5 @@
 package com.epam.jwd.core_final.domain;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,10 +17,10 @@ import java.util.List;
 public class FlightMission extends AbstractBaseEntity {
     // todo
     String missionsName;
-    LocalDate startDate;
-    LocalDateTime startDateTime; //additonal field
-    LocalDate endDate;
-    LocalDateTime endDateTime; //additonal field
+    //LocalDate startDate;
+    LocalDateTime startDateTime; //additonal field, replace startDate
+    //LocalDate endDate;
+    LocalDateTime endDateTime; //additonal field, replace endDate
     Long distance;
     Spaceship assignedSpaceShift;
     List <CrewMember> assignedCrew;
@@ -36,28 +35,12 @@ public class FlightMission extends AbstractBaseEntity {
         this.missionsName = missionsName;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate() {
-        this.startDate = LocalDate.now(); //startDate;
-    }
-
     public LocalDateTime getStartDateTime() {
         return startDateTime;
     }
 
     public void setStartDateTime() {
         this.startDateTime = LocalDateTime.now();
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate() {
-        this.endDate = LocalDate.now();
     }
 
     public LocalDateTime getEndDateTime() {

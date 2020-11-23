@@ -36,7 +36,7 @@ public class UpdateTaskCompleted {
             }
         };
         timer = new Timer("UPDATE_MISSIONS");
-        Long period = Long.valueOf(APP_PROPERTIES.getMissionsRefresh());
+        Long period = APP_PROPERTIES.getMissionsRefresh();
         timer.scheduleAtFixedRate(updater, 10000, period);
         LoggerImpl.LOGGER.info("START AUTO UPDATE TASK..");
     }

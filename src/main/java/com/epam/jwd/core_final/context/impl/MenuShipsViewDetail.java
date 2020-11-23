@@ -11,7 +11,6 @@ public class MenuShipsViewDetail extends NassaMenu {
         Scanner scanner = new Scanner(System.in);
         try {
             Long finalId = id;
-            SpaceshipCrudImpl.SPACESHIP_FACTORY.checkExist(id);
             SpaceshipCrudImpl.SPACESHIP_FACTORY.printDetailItem(id);
         } catch (NoSuchElementException e) {
             System.out.println(BADID);

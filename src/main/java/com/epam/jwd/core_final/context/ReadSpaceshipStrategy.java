@@ -31,7 +31,7 @@ public class ReadSpaceshipStrategy implements ReadContextStrategy{
             //[1:4] [2:5] [3:2] [4:1]
             for (String string : crew) {
                 String[] str3 = string.split(":", 2);
-                mapship.put(Role.getRoleById(Short.valueOf(str3[0])), Short.valueOf(str3[1]));
+                mapship.put(Role.getRoleById(Short.parseShort(str3[0])), Short.valueOf(str3[1]));
             }
             spaceship.setCrew(mapship);
             spaceships.add(spaceship);

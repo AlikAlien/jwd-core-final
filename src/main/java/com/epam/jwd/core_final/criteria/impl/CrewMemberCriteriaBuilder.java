@@ -10,40 +10,41 @@ public class CrewMemberCriteriaBuilder {
     private CrewMemberCriteriaBuilder () {}
 
     public CrewMemberCriteria create (Role role, int id) {
-        CrewMemberCriteria crewMemberCriteria = new CrewMemberCriteria.Builder(NassaContext.NASSA_CONTEXT.getCrewMembers())
+        return new CrewMemberCriteria.Builder(NassaContext.NASSA_CONTEXT.getCrewMembers())
                 .byRole(role)
-                //.byRank(rank)
-                //.byName(name)
-                .byId(id)
+                .byNum(id)
                 .byIsReady(true)
                 .build();
-        return crewMemberCriteria;
     }
 
     public CrewMemberCriteria createByName (String name) {
-        CrewMemberCriteria crewMemberCriteria = new CrewMemberCriteria.Builder(NassaContext.NASSA_CONTEXT.getCrewMembers())
+        return new CrewMemberCriteria.Builder(NassaContext.NASSA_CONTEXT.getCrewMembers())
                 .byName(name)
                 .build();
-        return crewMemberCriteria;
     }
 
     public CrewMemberCriteria createByRole (Role role) {
-        CrewMemberCriteria crewMemberCriteria = new CrewMemberCriteria.Builder(NassaContext.NASSA_CONTEXT.getCrewMembers())
+        return new CrewMemberCriteria.Builder(NassaContext.NASSA_CONTEXT.getCrewMembers())
                 .byRole(role)
                 .build();
-        return crewMemberCriteria;
     }
 
     public CrewMemberCriteria createByRank (Rank rank) {
-        CrewMemberCriteria crewMemberCriteria = new CrewMemberCriteria.Builder(NassaContext.NASSA_CONTEXT.getCrewMembers())
+        return new CrewMemberCriteria.Builder(NassaContext.NASSA_CONTEXT.getCrewMembers())
                 .byRank(rank)
                 .build();
-        return crewMemberCriteria;
     }
-    public CrewMemberCriteria createById (int id) {
-        CrewMemberCriteria crewMemberCriteria = new CrewMemberCriteria.Builder(NassaContext.NASSA_CONTEXT.getCrewMembers())
+
+    public CrewMemberCriteria createById (Long id) {
+        return new CrewMemberCriteria.Builder(NassaContext.NASSA_CONTEXT.getCrewMembers())
                 .byId(id)
                 .build();
-        return crewMemberCriteria;
     }
+
+    public CrewMemberCriteria createByIsReady (boolean arg) {
+        return new CrewMemberCriteria.Builder(NassaContext.NASSA_CONTEXT.getCrewMembers())
+                .byIsReady(arg)
+                .build();
+    }
+
 }

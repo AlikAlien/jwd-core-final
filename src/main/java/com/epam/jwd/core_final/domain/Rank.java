@@ -33,7 +33,7 @@ public enum Rank implements BaseEntity {
      * @throws UnknownEntityException if such id does not exist
      */
     public static Rank getRankById(int id) {
-        Rank rank = null;
+        Rank rank;
         switch (id) {
             case 1:
                 rank = Rank.TRAINEE;

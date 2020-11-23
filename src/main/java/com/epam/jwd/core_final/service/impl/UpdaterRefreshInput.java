@@ -56,7 +56,7 @@ public class UpdaterRefreshInput {
         };
 
         timer = new Timer("REFRESH_TASK");
-        Long period = Long.valueOf(APP_PROPERTIES.getFileRefreshRate());
+        Long period = APP_PROPERTIES.getFileRefreshRate();
         timer.scheduleAtFixedRate(updater, 10000, period);
         LoggerImpl.LOGGER.info("START REFRESH TASK COMPLETION..");
     }

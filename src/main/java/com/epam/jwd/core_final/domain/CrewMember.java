@@ -44,12 +44,14 @@ public class CrewMember extends AbstractBaseEntity {
         isReadyForNextMissions = readyForNextMissions;
     }
 
-    public List<Long> getiDMission() {
+    public List<Long> getMissionsList() {
         return iDMission;
     }
+
     public void addiDMission(Long id) {
         this.iDMission.add(id);
     }
+
     public String getIsBusy(){
         String isBusy;
         if (isReadyForNextMissions) isBusy = "FREE";
