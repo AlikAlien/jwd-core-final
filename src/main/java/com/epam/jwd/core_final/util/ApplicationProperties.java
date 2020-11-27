@@ -1,6 +1,4 @@
-package com.epam.jwd.core_final.domain;
-
-import com.epam.jwd.core_final.util.PropertyReaderUtil;
+package com.epam.jwd.core_final.util;
 
 /**
  * This class should be IMMUTABLE!
@@ -35,6 +33,9 @@ public class ApplicationProperties {
     final Long missionsRefreshRate = Long.parseLong(PropertyReaderUtil.READER_UTIL.loadProperties("missionsRefreshRate"));
     final float capacityCrew = Float.parseFloat(PropertyReaderUtil.READER_UTIL.loadProperties("capacityCrew"));
     final Long missionsRndFailRate = Long.parseLong(PropertyReaderUtil.READER_UTIL.loadProperties("missionsRndFailRate"));
+    final String sql = PropertyReaderUtil.READER_UTIL.loadProperties("sql");
+    final String user = PropertyReaderUtil.READER_UTIL.loadProperties("user");
+    final String password = PropertyReaderUtil.READER_UTIL.loadProperties("password");
 
     public String getInputRootDir() {
         return inputRootDir;
@@ -82,5 +83,17 @@ public class ApplicationProperties {
 
     public Long getMissionsRndFailRate() {
         return missionsRndFailRate;
+    }
+
+    public String getSql() {
+        return sql;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

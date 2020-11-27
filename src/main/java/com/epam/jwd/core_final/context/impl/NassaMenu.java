@@ -23,7 +23,6 @@ public class NassaMenu implements ApplicationMenu {
     public static final String EXITNENU = GREEN + "EXIT.." + RST;
     public static final String RETURN = "\nSELECT " + GREEN + "0" + RST + " FOR RETURN TO MAIN MENU";
 
-
     @Override
     public ApplicationContext getApplicationContext() {
         UpdateTaskCompleted.UPDATER.updMission();
@@ -45,19 +44,18 @@ public class NassaMenu implements ApplicationMenu {
         return null;
     }
 
-    public int handleUserInput(int option) {
-        int o = option;
+    public int handleUserInput(int o) {
         switch (o) {
             case 1: //VIEW MISSION
                 MenuMissionView.menuView();
                 break;
             case 2: //CREATE MISSION
-                MenuMissionCreate.nenuCreate(option);
+                MenuMissionCreate.nenuCreate(0);
                 break;
             case 3: //VIEW SPACESHIPS
                 MenuShipsView.menuViewSpaceships();
                 break;
-            case 4: //VIEW CREW MEMBERS
+            case 4: //SEARCH AND VIEW CREW MEMBERS
                 MenuCrewSearchByCriteria.menuSearch();
                 break;
             case 5: //EXIT

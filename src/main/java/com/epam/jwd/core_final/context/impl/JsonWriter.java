@@ -1,6 +1,6 @@
 package com.epam.jwd.core_final.context.impl;
 
-import com.epam.jwd.core_final.domain.ApplicationProperties;
+import com.epam.jwd.core_final.util.ApplicationProperties;
 import com.epam.jwd.core_final.factory.impl.MissionCrudImpl;
 import com.epam.jwd.core_final.util.LoggerImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;

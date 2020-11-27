@@ -9,7 +9,7 @@ import java.time.ZoneId;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.epam.jwd.core_final.domain.ApplicationProperties.APP_PROPERTIES;
+import static com.epam.jwd.core_final.util.ApplicationProperties.APP_PROPERTIES;
 import static com.epam.jwd.core_final.context.impl.NassaContext.NASSA_CONTEXT;
 
 public class UpdaterRefreshInput {

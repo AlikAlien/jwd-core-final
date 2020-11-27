@@ -11,7 +11,7 @@ import java.util.TimerTask;
 import static com.epam.jwd.core_final.context.impl.NassaMenu.*;
 
 
-import static com.epam.jwd.core_final.domain.ApplicationProperties.APP_PROPERTIES;
+import static com.epam.jwd.core_final.util.ApplicationProperties.APP_PROPERTIES;
 
 public class UpdateTaskCompleted {
     public static final UpdateTaskCompleted UPDATER = new UpdateTaskCompleted();

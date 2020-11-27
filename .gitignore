@@ -4,3 +4,5 @@ build/
 
 *.iml
 /out/
+
+/src/main/resources/sql/

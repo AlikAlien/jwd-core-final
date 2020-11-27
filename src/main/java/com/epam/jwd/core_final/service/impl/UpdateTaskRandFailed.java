@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 import static com.epam.jwd.core_final.context.impl.NassaMenu.*;
 
-import static com.epam.jwd.core_final.domain.ApplicationProperties.APP_PROPERTIES;
+import static com.epam.jwd.core_final.util.ApplicationProperties.APP_PROPERTIES;
 
 public class UpdateTaskRandFailed {
     public static final UpdateTaskRandFailed UPDATER = new UpdateTaskRandFailed();
